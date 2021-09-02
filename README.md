@@ -3,7 +3,7 @@
 ### This is a custom create-react-app template of react-boilerplate
 ### with tailwind and framer motions libs.
 
-<div align="center" >Crafted for <strong>scalable</strong> & <strong>Simple</strong> and <strong>easily maintainable</strong> React.js applications <br /> 
+<div>Crafted for <strong>scalable</strong> & <strong>Simple</strong> and <strong>easily maintainable</strong> React.js applications <br /> 
 with a focus on  
 <strong>Simplicity</strong> and <strong>best practices</strong>.
 </div>
