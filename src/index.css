@@ -2,3 +2,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* GILROY CUSTOM FONT FAMILY  */
+@font-face {
+  font-family: "gblack";
+  src: local("gblack"),
+    url("./fonts/gilroy/Gilroy-Black.ttf") format("truetype");
+  font-weight: 1000;
+}
+
+@font-face {
+  font-family: "gheavy";
+  src: local("gheavy"),
+    url("./fonts/gilroy/Gilroy-Heavy.ttf") format("truetype");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "gextrabold";
+  src: local("gextrabold"),
+    url("./fonts/gilroy/Gilroy-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "gbold";
+  src: local("gbold"), url("./fonts/gilroy/Gilroy-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "gsemibold";
+  src: local("gsemibold"),
+    url("./fonts/gilroy/Gilroy-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "gmedium";
+  src: local("gmedium"),
+    url("./fonts/gilroy/Gilroy-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "gregular";
+  src: local("gregular"),
+    url("./fonts/gilroy/Gilroy-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "gthin";
+  src: local("gthin"), url("./fonts/gilroy/Gilroy-Thin.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "glight";
+  src: local("glight"),
+    url("./fonts/gilroy/Gilroy-Light.ttf") format("truetype");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "gultralight";
+  src: local("gultralight"),
+    url("./fonts/gilroy/Gilroy-UltraLight.ttf") format("truetype");
+  font-weight: 100;
+}
