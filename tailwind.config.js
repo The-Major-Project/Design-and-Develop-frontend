@@ -1,11 +1,15 @@
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
-  theme: {
-    extend: {},
-  },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
-}
+	purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+	darkMode: false, // or 'media' or 'class'
+	theme: {
+		extend: {
+			boxShadow: {
+				btnShadow: "15px 15px 37px 0 rgba(0, 92, 230, 0.35)",
+			},
+		},
+	},
+	variants: {
+		extend: {},
+	},
+	plugins: [],
+};
