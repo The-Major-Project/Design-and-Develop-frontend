@@ -37,7 +37,7 @@ const Header = () => {
             FAQ's
           </a>
         </nav>
-        <Button children="Login" type="secondary" size="small" isLoading={false} />
+        <Button children="Login" type="secondary" size="small" />
       </div>
     </header>
   );
