@@ -16,7 +16,7 @@ const Header = () => {
       className={
         colorChange
           ? " transition duration-500 ease-in-out fixed w-full md:px-6 py-3 bg-white"
-          : "transition duration-500 ease-in-out w-full bg-transparent fixed md:px-6 py-3 "
+          : "transition duration-500 ease-in-out w-full bg-transparent md:px-6 py-3 "
       }
     >
       <div className="flex p-3 items-center justify-between md:max-w-7xl mx-auto">
