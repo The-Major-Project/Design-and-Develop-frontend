@@ -6,7 +6,7 @@ const Header = () => {
   const [colorChange, setColorchange] = useState(false);
   const path = window.location.pathname;
   let extra;
-  if (path.includes("Signup") || path.includes("Login")) {
+  if (path.includes("signup") || path.includes("login")) {
     extra = "bg-white"
   }
   else {
@@ -23,7 +23,7 @@ const Header = () => {
 
   const history = useHistory();
   const routeChange = () => {
-    let path = `/Login`;
+    let path = `/login`;
     history.push(path);
   }
 

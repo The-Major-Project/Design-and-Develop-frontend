@@ -24,7 +24,7 @@ const Landing = () => {
   })
   const history = useHistory();
   const routeChange = () => {
-    let path = `/Signup`;
+    let path = `/signup`;
     history.push(path);
   }
   return (
