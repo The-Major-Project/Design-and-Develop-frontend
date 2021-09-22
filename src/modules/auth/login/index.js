@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Input from "../../../components/Input";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
@@ -57,9 +58,9 @@ const Login = () => {
 								hasShadow={true}
 							/>
 							<div className="text-center mt-2">
-								<a href="https://github.com/">
+								<Link to="/signup">
 									New to D&D? <span className="text-blue-600">Sign up</span>
-								</a>
+								</Link>
 							</div>
 						</form>
 					</div>
