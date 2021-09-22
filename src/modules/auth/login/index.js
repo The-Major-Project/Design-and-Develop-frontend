@@ -13,6 +13,11 @@ const Login = () => {
 		password: "",
 	});
 
+	const onClickHandler = (e) => {
+		e.preventDefault();
+		console.log(user);
+	};
+
 	return (
 		<>
 			<Header />
@@ -56,6 +61,7 @@ const Login = () => {
 								size="full"
 								children="Make It Happen 😎"
 								hasShadow={true}
+								onClick={onClickHandler}
 							/>
 							<div className="text-center mt-2">
 								<Link to="/signup">
