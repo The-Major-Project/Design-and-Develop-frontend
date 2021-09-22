@@ -12,13 +12,6 @@ const Login = () => {
 		password: "",
 	});
 
-	const onClickHandler = (e) => {
-		e.preventDefault();
-
-		// Printing user info to console
-		console.log(user);
-	};
-
 	return (
 		<>
 			<Header />
@@ -62,7 +55,6 @@ const Login = () => {
 								size="full"
 								children="Make It Happen 😎"
 								hasShadow={true}
-								onClick={onClickHandler}
 							/>
 							<div className="text-center mt-2">
 								<a href="https://github.com/">
