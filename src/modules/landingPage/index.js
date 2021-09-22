@@ -31,7 +31,7 @@ const Landing = () => {
     <>
       <Header />
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-200 via-blue-100 to-white min-h-screen ">
+      <section className="bg-gradient-to-r from-blue-200 via-blue-100 to-white min-h-screen pb-10 ">
         <div className="p-3  flex flex-col text-center justify-center items-center pt-20 mx-auto md:max-w-7xl md: lg:flex-row-reverse lg:px-6 lg:py-12 lg:text-left lg:justify-between lg:pt-28">
           <div className="lg:w-2/5">
             <motion.img src={Hero} alt="hero" drag
@@ -67,12 +67,12 @@ const Landing = () => {
       </section>
       {/*  */}
       {/* About Section */}
-      <section id="about" className="flex flex-col justify-center items-center text-center p-3 md:max-w-7xl lg:flex-row lg:justify-between lg:px-0 lg:mx-auto lg:text-left lg:pb-0 md:py-20">
+      <section id="about" className="flex flex-col justify-center items-center text-center p-3 md:max-w-7xl lg:flex-row lg:justify-between lg:px-0 lg:mx-auto lg:text-left lg:pb-0 md:py-20  md:flex md:flex-col-reverse">
         <div className="lg:w-2/5">
           <motion.img className="p-4 w-full" src={About} alt="About" whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }} />
         </div>
-        <div className="px-8 md:px-20 lg:px-0 lg:w-1/2">
+        <div className="px-8 md:px-20 lg:px-0 lg:w-1/2 md:pb-20">
           <h1 className="text-4xl mb-2 font-extrabold">About Us</h1>
           <p className="text-sm text-gray-500">
             Uddoktagiri Digital is a Digital Agency focused on providing fully
@@ -90,8 +90,8 @@ const Landing = () => {
       {/*  */}
       {/* Navigate */}
       <section id="learn" className="w-full">
-        <div className="flex mx-auto flex-col-reverse justify-center items-center text-center p-3 md:max-w-7xl lg:flex-row lg:text-left md:py-0">
-          <div className="mt-8 px-8 md:px-20 lg:px-0 lg:w-1/2">
+        <div className="flex mx-auto flex-col-reverse justify-center items-center text-center p-3 md:max-w-7xl lg:flex-row lg:text-left md:py-0 md:flex md:flex-col">
+          <div className="mt-8 px-8 md:px-20 lg:px-0 lg:w-1/2 ">
             <h1 className="py-1 font-extrabold px-0 text-4xl mb-2 lg:w-96">
               Navigate Through D&D!
             </h1>
@@ -114,7 +114,7 @@ const Landing = () => {
       </section>
       {/*  */}
       {/* Why Section */}
-      <section id="why" className="my-20 flex mx-auto flex-col justify-center align-center p-3 md:max-w-7xl lg:py-20 ">
+      <section id="why" className="my-8 flex mx-auto flex-col justify-center align-center p-3 md:max-w-7xl lg:py-12 md:mt-20 ">
         <div className="text-center">
           <h1 className="text-4xl font-base mb-2 font-extrabold">
             Why Design & Develop?
@@ -139,9 +139,9 @@ const Landing = () => {
       </section>
       {/*  */}
       {/* FAQS */}
-      <section id="faq" className="w-full my-10 flex mx-auto flex-col justify-center align-center p-3 md:max-w-7xl lg:py-20 ">
+      <section id="faq" className="w-full my-10 flex mx-auto flex-col justify-center align-center p-3 md:max-w-7xl lg:py-12 ">
         <div className="text-center">
-          <h1 className="text-4xl font-base mb-2 font-extrabold">
+          <h1 className="text-4xl font-base font-extrabold">
             Frequently Asked Questions
           </h1>
         </div>
@@ -216,14 +216,14 @@ const Landing = () => {
               </form>
             </div>
             <div className="text-center mb-4 px-6 lg:w-80 lg:flex lg:flex-col lg:justify-center lg:items-center xl:w-96">
-              <h3 className="text-3xl font-base mb-2 font-extrabold">
+              <h3 className="text-3xl font-base mb-3 font-extrabold">
                 Get a quote
               </h3>
               <p className="text-sm text-gray-600 font-extralight">
                 Fill out the form and we will contact you within the next 24
                 hours.
               </p>
-              <img src={Contact} alt="contact" className="hidden w-full lg:flex" />
+              <img src={Contact} alt="contact" className="hidden w-full lg:flex lg:ml-44 lg:my-10" />
             </div>
           </div>
         </div>
