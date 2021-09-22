@@ -11,7 +11,7 @@ const Why = ({ color, head, para, className }) => {
         color === "pink",
       " bg-yellow-100 text-yellow-500":
         color === "yellow",
-    }, "w-80 px-8 py-5 transition duration-500 ease-in-out hover:shadow-xl rounded-3xl lg:w-96 lg:mx-10 md:py-6"
+    }, "w-80 px-8 py-5 transition duration-500 ease-in-out hover:shadow-xl rounded-3xl lg:w-96 lg:mx-10 md:py-6 md:mb-10"
     , className
   );
 

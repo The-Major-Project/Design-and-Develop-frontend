@@ -80,6 +80,25 @@ const Signup = () => {
     socialProfile = null;
   }
 
+  const onClickHandler = (e) => {
+    e.preventDefault();
+    console.log("chal gya hai");
+    if (user.selected === "designer") {
+      setUser({
+        ...user,
+        githubusername: "",
+      });
+    } else if (user.selected === "developer") {
+      setUser({
+        ...user,
+        dribbbleusername: "",
+      });
+    } else {
+      console.log("sab badhiya hai");
+    }
+    console.log(user);
+  };
+
   return (
     <>
       <Header />
@@ -176,6 +195,7 @@ const Signup = () => {
                 size="full"
                 children="Make It Happen 😎"
                 hasShadow={true}
+                onClick={(e) => onClickHandler(e)}
               />
               <div className="text-center mt-2">
                 <a href="https://github.com/">
