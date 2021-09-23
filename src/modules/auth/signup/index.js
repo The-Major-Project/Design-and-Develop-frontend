@@ -127,10 +127,9 @@ const Signup = () => {
       });
       console.log(response);
       const data = await response.json();
-      if (data.status === 201 || data) {
+      if (data.status === 201 ) {
         console.log(data.status);
         history.push("/login");
-
         toast.success(data.message, {
           position: "bottom-right",
           autoClose: 5000,
@@ -142,6 +141,7 @@ const Signup = () => {
         });
         console.log("user registered successfully");
       } else {
+        console.log(data.status);
         toast.error(data.message, {
           position: "bottom-right",
           autoClose: 5000,
