@@ -6,6 +6,7 @@ import Footer from "../../../components/Footer";
 import Button from "../../../components/Button";
 import AuthSvg from "../../../assets/shared/authsvg.svg";
 import { ReactComponent as UnderLine } from "../../../assets/shared/underline2.svg";
+import axios from "../../../api/api";
 
 const Login = () => {
 	const [user, setUser] = useState({
@@ -13,9 +14,14 @@ const Login = () => {
 		password: "",
 	});
 
-	const onClickHandler = (e) => {
+	const onClickHandler = async (e) => {
 		e.preventDefault();
-		console.log(user);
+		try {
+			const res = await axios.post("/login", user);
+			console.log(res);
+		} catch (err) {
+			console.log(err.response.data);
+		}
 	};
 
 	return (
