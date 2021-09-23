@@ -127,7 +127,7 @@ const Signup = () => {
       });
       console.log(response);
       const data = await response.json();
-      if (data.status === 201 ) {
+      if (data.status === 201) {
         console.log(data.status);
         history.push("/login");
         toast.success(data.message, {
