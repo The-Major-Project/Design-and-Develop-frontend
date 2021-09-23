@@ -7,6 +7,7 @@ import Button from "../../../components/Button";
 import AuthSvg from "../../../assets/shared/authsvg.svg";
 import { ReactComponent as UnderLine } from "../../../assets/shared/underline2.svg";
 import axios from "../../../api/api";
+import { toast } from "react-toastify";
 
 const Login = () => {
 	const [user, setUser] = useState({
@@ -20,7 +21,17 @@ const Login = () => {
 			const res = await axios.post("/login", user);
 			console.log(res);
 		} catch (err) {
-			console.log(err.response.data);
+			const msg = err.response.data.message;
+			console.log(msg);
+			toast.error(msg, {
+				position: "bottom-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
 		}
 	};
 
