@@ -7,7 +7,7 @@ import Button from "../../../components/Button";
 import AuthSvg from "../../../assets/shared/authsvg.svg";
 import { ReactComponent as UnderLine } from "../../../assets/shared/underline2.svg";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const history = useHistory();
@@ -127,15 +127,42 @@ const Signup = () => {
       });
       console.log(response);
       const data = await response.json();
-      if (data.status === 402 || !data) {
-        window.alert(data.message);
-      } else {
-        window.alert(data.message);
-        console.log("user registered successfully");
+      if (data.status === 201 || data) {
+        console.log(data.status);
         history.push("/login");
+
+        toast.success(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        console.log("user registered successfully");
+      } else {
+        toast.error(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.message);
+      toast.error(error.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
