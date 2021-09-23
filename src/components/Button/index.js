@@ -10,6 +10,7 @@ const Button = ({
 	hasShadow,
 	className,
 	isLoading,
+	action
 }) => {
 	const classes = cx(
 		{
@@ -29,7 +30,7 @@ const Button = ({
 	);
 
 	return (
-		<button className={classes} onClick={onClick}>
+		<button className={classes} onClick={onClick} type={action}>
 			{isLoading ? (
 				<Loader
 					bg={type === "secondary" ? "#2563EB" : "#fff"}
