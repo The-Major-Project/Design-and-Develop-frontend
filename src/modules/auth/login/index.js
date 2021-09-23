@@ -6,6 +6,8 @@ import Footer from "../../../components/Footer";
 import Button from "../../../components/Button";
 import AuthSvg from "../../../assets/shared/authsvg.svg";
 import { ReactComponent as UnderLine } from "../../../assets/shared/underline2.svg";
+import axios from "../../../api/api";
+import { toast } from "react-toastify";
 
 const Login = () => {
 	const [user, setUser] = useState({
@@ -13,9 +15,24 @@ const Login = () => {
 		password: "",
 	});
 
-	const onClickHandler = (e) => {
+	const onClickHandler = async (e) => {
 		e.preventDefault();
-		console.log(user);
+		try {
+			const res = await axios.post("/login", user);
+			console.log(res);
+		} catch (err) {
+			const msg = err.response.data.message;
+			console.log(msg);
+			toast.error(msg, {
+				position: "bottom-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
 	};
 
 	return (
