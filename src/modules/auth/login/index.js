@@ -24,7 +24,7 @@ const Login = () => {
 			const msg = err.response.data.message;
 			console.log(msg);
 			toast.error(msg, {
-				position: "bottom-right",
+				position: "top-center",
 				autoClose: 5000,
 				hideProgressBar: false,
 				closeOnClick: true,

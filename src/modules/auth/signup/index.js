@@ -8,6 +8,7 @@ import AuthSvg from "../../../assets/shared/authsvg.svg";
 import { ReactComponent as UnderLine } from "../../../assets/shared/underline2.svg";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "../../../api/api";
 
 const Signup = () => {
   const history = useHistory();
@@ -101,61 +102,39 @@ const Signup = () => {
       console.log("sab badhiya hai");
     }
     // Hitting the api
-
+    const {
+      name,
+      email,
+      password,
+      selected,
+      dribbbleusername,
+      githubusername,
+    } = user;
     try {
-      const {
+      const res = await axios.post("/register", {
         name,
         email,
         password,
-        selected,
+        usertype: selected,
         dribbbleusername,
         githubusername,
-      } = user;
-      const response = await fetch("/register", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          password: password,
-          usertype: selected,
-          dribbbleusername: dribbbleusername,
-          githubusername: githubusername,
-        }),
       });
-      console.log(response);
-      const data = await response.json();
-      if (data.status === 201) {
-        console.log(data.status);
-        history.push("/login");
-        toast.success(data.message, {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        console.log("user registered successfully");
-      } else {
-        console.log(data.status);
-        toast.error(data.message, {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-    } catch (error) {
-      console.log(error.message);
-      toast.error(error.message, {
-        position: "bottom-right",
+      console.log(res);
+      history.push("/login");
+      toast.success("User Registered Successfully Login to Continue", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } catch (err) {
+      const msg = err.response.data.message;
+      console.log(msg);
+      toast.error(msg, {
+        position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
