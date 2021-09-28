@@ -5,6 +5,7 @@ import Signup from "../modules/auth/signup";
 import Login from "../modules/auth/login";
 import DashBoard from "../modules/dashboard";
 const Router = () => {
+  
   return (
     <Switch>
       <Route exact path="/" component={Home} />
@@ -14,5 +15,5 @@ const Router = () => {
     </Switch>
   );
 };
-
+ 
 export default Router;
