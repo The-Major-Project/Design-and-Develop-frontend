@@ -5,6 +5,7 @@ module.exports = {
 		extend: {
 			boxShadow: {
 				btnShadow: "15px 15px 37px 0 rgba(0, 92, 230, 0.35)",
+				siderShadow: "15px 15px 15px 0 rgba(0, 92, 230, 0.04)",
 			},
 		},
 	},
