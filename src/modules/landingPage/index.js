@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef }  from "react";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion"
 import Header from "../../components/Header";
@@ -14,6 +14,8 @@ import Why from "./_components/whyMoveEasy";
 import Faqs from "./_components/faq's";
 import Input from "../../components/Input";
 import { FaqData } from "./_components/faq's/faq.data";
+import emailjs from 'emailjs-com';
+import {toast} from 'react-toastify'
 
 const Landing = () => {
 
@@ -26,7 +28,34 @@ const Landing = () => {
   const routeChange = () => {
     let path = `/signup`;
     history.push(path);
-  }
+  } 
+  const form = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_2gvm163', 'template_fqdzahp', form.current, 'user_ATUT81Ji9zh87IWKoU2rE')
+      .then((result) => {
+        toast.success("Thankyou for reaching us😊. Our team will get back to you soon!🤝", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }, (error) => {
+        toast.error("Oops😅! Error has occured. Please try again later",  {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+    }
   return (
     <>
       <Header />
@@ -169,7 +198,7 @@ const Landing = () => {
           </div>
           <div className=" p-8 bg-blue-100 flex flex-col-reverse md:px-14 md:py-14 md:rounded-3xl lg:flex-row justify-evenly">
             <div className="form bg-white rounded-2xl p-6 py-8 md:px-10 lg:w-96" >
-              <form>
+              <form ref ={form}>
                 <Input
                   type="text"
                   inputType="input"
@@ -212,6 +241,7 @@ const Landing = () => {
                   children="Submit"
                   className="mt-4"
                   isloading="true"
+                  onClick = {sendEmail}
                 />
               </form>
             </div>
@@ -233,5 +263,4 @@ const Landing = () => {
     </>
   );
 };
-
 export default Landing;
