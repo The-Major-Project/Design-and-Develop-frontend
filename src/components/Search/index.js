@@ -5,7 +5,7 @@ const Search = () => {
 	const onChangeHandler = () => {};
 
 	return (
-		<div className="flex px-4 items-center border-2 rounded-lg w-80">
+		<div className="flex px-4 items-center border-2 rounded-lg w-72 md:w-80 mr-2">
 			<SearchIcon className="" />
 			<input
 				className="py-2 pl-4 text-sm text-gray-700 font-medium w-full outline-none"
