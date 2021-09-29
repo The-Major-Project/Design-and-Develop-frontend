@@ -22,10 +22,11 @@ const Layout = ({ sider, header, main }) => {
 					onClick={() => setIsSidebarOpen(!isSidebarOpen)}
 				></div>
 
-				<div className="w-full flex flex-col min-h-screen ">
-					<header className="flex flex-row-reverse justify-between items-center bg-white px-6 py-3 fixed w-full lg:z-20">
+				<div className="w-full flex flex-col min-h-screen">
+					<header className="flex w-full justify-between items-center bg-white px-6 py-3 sticky top-0 lg:z-20">
+						{header}
 						<div
-							className="border-blue-500 px-2 py-1 flex flex-col justify-evenly h-8  rounded-md"
+							className="border-blue-500 px-2 py-1 flex flex-col justify-evenly h-8  rounded-md lg:hidden"
 							onClick={() => setIsSidebarOpen(!isSidebarOpen)}
 						>
 							<motion.img
@@ -39,11 +40,10 @@ const Layout = ({ sider, header, main }) => {
 								alt="pos"
 							/>
 						</div>
-						{header}
 					</header>
 					<section
 						onClick={() => setIsSidebarOpen(false)}
-						className="bg-white flex flex-1 h-auto p-6 lg:p-10 mt-10"
+						className="bg-white flex flex-1 h-auto p-6 lg:p-10"
 					>
 						{main}
 					</section>

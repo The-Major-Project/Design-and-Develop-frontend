@@ -4,6 +4,7 @@ import axios from "axios";
 import Layout from "./../../components/Layout";
 import SideMenu from "../../components/SideMenu";
 import DashboardBanner from "../../components/DashboardBanner";
+import DashboardHeader from "../../components/DashboardHeader";
 
 const DashBoard = () => {
 	const history = useHistory();
@@ -42,7 +43,7 @@ const DashBoard = () => {
 	return (
 		<Layout
 			sider={<SideMenu />}
-			header="HEADER"
+			header={<DashboardHeader />}
 			main={
 				<div className="flex-row">
 					<DashboardBanner />
