@@ -5,6 +5,7 @@ import Layout from "./../../components/Layout";
 import SideMenu from "../../components/SideMenu";
 import DashboardBanner from "../../components/DashboardBanner";
 import DashboardHeader from "../../components/DashboardHeader";
+import DashboardPostCard from "../../components/DashboardPostCard";
 
 const DashBoard = () => {
 	const history = useHistory();
@@ -47,6 +48,7 @@ const DashBoard = () => {
 			main={
 				<div className="flex-row">
 					<DashboardBanner />
+					<DashboardPostCard/>
 					<p className="mt-8">
 						Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod id
 						veritatis expedita fugit iusto recusandae facilis possimus enim vero
