@@ -2,7 +2,7 @@ import React from "react";
 import icon from "../../assets/DashboardIcons/icon.png";
 import Button from "../Button";
 
-const DashboardPostCard = () => {
+const DashboardPostCard = ({avatar, heading, description, requireddeveloper, requiredDesigner,user, date}) => {
   return (
     <>
       <div className="border-2 border-blue-100 rounded-3xl p-8 w-full md:w-80 lg:w-96">
@@ -28,15 +28,10 @@ const DashboardPostCard = () => {
           </div>
           <div className="flex justify-between pt-2 pb-4">
             <div className="text-blue-600">By: mmy</div>
-            <div className="text-gray-500 texr-sm">15 jun 2021</div>
+            <div className="text-gray-500 text-sm mb-5">15 jun 2021</div>
           </div>
         </div>
-        <Button
-          type="primary"
-          size="full"
-          hasShadow
-          children="Let's collab 🤝"
-        />
+        <Button type="primary" size="full" children="Let's collab 🤝" />
       </div>
     </>
   );
