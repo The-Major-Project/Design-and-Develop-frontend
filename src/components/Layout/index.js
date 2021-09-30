@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Ham from "../../assets/Ham.svg";
 import { motion } from "framer-motion";
+import Search from "../Search";
 
-const Layout = ({ sider, header, main }) => {
+const Layout = ({ sider, main }) => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
 	const asideStyles = isSidebarOpen ? "translate-x-0 " : "-translate-x-full";
@@ -23,8 +24,11 @@ const Layout = ({ sider, header, main }) => {
 				></div>
 
 				<div className="w-full flex flex-col min-h-screen">
-					<header className="flex w-full justify-between items-center bg-white px-6 py-3 sticky top-0 lg:z-20">
-						{header}
+					<header className="flex w-full justify-evenly items-center bg-white px-6 py-3 sticky top-0 lg:z-20">
+						<h1 className="hidden md:block text-2xl font-semibold text-gray-800">
+							Welcome Back, <span className="text-blue-600">Jessica!</span>
+						</h1>
+						<Search />
 						<div
 							className="border-blue-500 px-2 py-1 flex flex-col justify-evenly h-8  rounded-md lg:hidden"
 							onClick={() => setIsSidebarOpen(!isSidebarOpen)}
