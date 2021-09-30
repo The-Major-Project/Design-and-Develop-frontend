@@ -4,8 +4,6 @@ import axios from "axios";
 import Layout from "./../../components/Layout";
 import SideMenu from "../../components/SideMenu";
 import DashboardBanner from "../../components/DashboardBanner";
-import DashboardHeader from "../../components/DashboardHeader";
-import DashboardPostCard from "../../components/DashboardPostCard";
 
 const DashBoard = () => {
 	const history = useHistory();
@@ -39,12 +37,12 @@ const DashBoard = () => {
 	// USING THIS EFFECT HOOK FOR JWT VERIFICATION
 	useEffect(() => {
 		verifyDashboard();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
 		<Layout
 			sider={<SideMenu />}
-			header={<DashboardHeader />}
 			main={
 				<div className="flex-row">
 					<DashboardBanner />
