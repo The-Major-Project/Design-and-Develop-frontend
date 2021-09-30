@@ -4,6 +4,10 @@ import Home from "../modules/Home";
 import Signup from "../modules/auth/signup";
 import Login from "../modules/auth/login";
 import DashBoard from "../modules/dashboard";
+import Profile from "../modules/dashboard/Profile";
+import Notifications from "../modules/dashboard/Notifications";
+import Happners from "../modules/dashboard/Happners";
+import Messages from "../modules/dashboard/Messages";
 
 let token = localStorage.getItem("accessToken");
 
@@ -13,6 +17,10 @@ const Router = () => {
 			{token ? (
 				<>
 					<Route exact path="/" component={DashBoard} />
+					<Route exact path="/profile" component={Profile} />
+					<Route exact path="/notifications" component={Notifications} />
+					<Route exact path="/happners" component={Happners} />
+					<Route exact path="/messages" component={Messages} />
 					<Route exact path="/login">
 						<Redirect to="/" />
 					</Route>
@@ -30,5 +38,5 @@ const Router = () => {
 		</Switch>
 	);
 };
- 
+
 export default Router;

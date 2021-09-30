@@ -12,8 +12,8 @@ const SideMenuItem = ({ path, label, iconActive, iconInactive }) => {
 			to={path}
 			className={cx(
 				"flex flex-row w-full items-center my-2 rounded-2xl p-5",
-				{ "bg-blue-50 text-blue-600 font-semibold": pathname.includes(path) },
 				{
+					"bg-blue-50 text-blue-600 font-semibold": pathname.includes(path),
 					"bg-white text-gray-500 font-medium hover:bg-gray-100":
 						!pathname.includes(path),
 				},
