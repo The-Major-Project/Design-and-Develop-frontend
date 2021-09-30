@@ -46,6 +46,7 @@ const DashBoard = () => {
 			main={
 				<div className="flex-row">
 					<DashboardBanner />
+					<DashboardPostCard/>
 					<p className="mt-8">
 						Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod id
 						veritatis expedita fugit iusto recusandae facilis possimus enim vero
