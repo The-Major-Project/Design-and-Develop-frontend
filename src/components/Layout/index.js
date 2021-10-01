@@ -47,7 +47,7 @@ const Layout = ({ sider, main }) => {
 					</header>
 					<section
 						onClick={() => setIsSidebarOpen(false)}
-						className="bg-white flex flex-1 h-auto p-6 lg:p-10"
+						className="p-6 lg:p-10"
 					>
 						{main}
 					</section>
