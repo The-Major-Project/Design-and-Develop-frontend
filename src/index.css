@@ -20,6 +20,17 @@
 	border-radius: 10px;
 }
 
+
+/* Hide Scroller */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 /* GILROY CUSTOM FONT FAMILY  */
 @font-face {
 	font-family: "gblack";
@@ -88,3 +99,4 @@
 		url("./fonts/gilroy/Gilroy-UltraLight.ttf") format("truetype");
 	font-weight: 100;
 }
+
