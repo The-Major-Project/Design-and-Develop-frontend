@@ -97,9 +97,9 @@ const Landing = () => {
               <UnderLine className="mx-auto lg:m-0 lg:w-52" />
             </div>
             <p className="text-md text-gray-500 mb-4">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci
-              ex vitae sequi nostrum quidem vero odio repudiandae expedita, quis
-              aliquam
+              Let's work together to create real-world projects with stronger
+              UIs, fresh ideas, and a team of designers and developers who can
+              make it happen.
             </p>
             <Button
               type="primary"
@@ -129,15 +129,21 @@ const Landing = () => {
         <div className="px-8 md:px-20 lg:px-0 lg:w-1/2 md:pb-20">
           <h1 className="text-4xl mb-2 font-extrabold">About Us</h1>
           <p className="text-sm text-gray-500">
-            Uddoktagiri Digital is a Digital Agency focused on providing fully
-            Customised, Growth oriented and ROI (Return On Investment) based
-            Digitalisation services. We are a team of professional digital
-            marketing experts. <br /> <br />
-            We strive to transform your marketing experience taking it to a
-            brand-new level. We are lucubrating here in Uddoktagiri Digital with
-            all our heart and mind. We are into providing digital-marketing
-            solutions and are committed to propel your business to the top of
-            search rankings.
+            D&D was an idea that came while researching collaboration
+            opportunities for software designers and developers. When we looked
+            closely we found there was no such platform for them to work
+            together. Therefore we decided to create D & D, make it happen. Our
+            platform connects designers and developers through their work and
+            assists in the creation of job prospects for them. They have the
+            resources to build trust among themselves as we showcase their
+            previous work on our platform.
+            <br /> <br />
+            D&D delivers an interactive space for individuals planning to work
+            together. Our team collaborated closely to establish a platform that
+            allows designers and developers can collaborate and build
+            professional relationships of trust, as well as assist one another
+            in developing new and unique projects with interactive user
+            interfaces.
           </p>
         </div>
       </section>
@@ -151,13 +157,14 @@ const Landing = () => {
             </h1>
             <p className="text-sm text-gray-500">
               <span className="font-medium">
-                Get closer to your goals with active Instagram followers
+                Create a reality for your idea with a collaborator.
               </span>
               <br /> <br />
-              Getting more followers for your IG account just got a whole lot
-              easier. All you need to do is select the package that is most
-              appealing to you, type in your Instagram username, and check the
-              order out through our secure payment portal.
+              Making your ideas come true just became better with D&D. Choose a
+              collaborator, review their work, interact with them and finally
+              decide whether or not to collaborate with them. All you have to do
+              now is write about your idea, find a collaborator and make your
+              idea happen.
             </p>
           </div>
           <div className="lg:w-2/5">
@@ -182,8 +189,8 @@ const Landing = () => {
             Why Design & Develop?
           </h1>
           <p className="font-extralight my-4 px-8 text-sm md:px-20 ">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore magna
+            To make an idea a reality, teamwork is mandatory. Find your own
+            team, to create your imagination into ambition
           </p>
         </div>
         <div className="mx-auto md:flex md:flex-wrap md:justify-evenly lg:justify-center">
