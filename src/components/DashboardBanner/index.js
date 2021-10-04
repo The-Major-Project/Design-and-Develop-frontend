@@ -18,7 +18,7 @@ const DashboardBanner = () => {
 					<h1 className="text-3xl text-gray-800 font-bold">
 						Got an idea?
 						<br />
-						Find people to work with you!
+						Find folks to collaborate with you!
 					</h1>
 					<Button
 						type="primary"
