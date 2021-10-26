@@ -5,7 +5,7 @@ const Tabs = ({ data }) => {
 
   return (
     <>
-      <div>
+      <div className="">
         <ul
           className="flex list-none overflow-x-scroll mb-6 no-scrollbar md:justify-center "
           role="tablist"
@@ -15,10 +15,10 @@ const Tabs = ({ data }) => {
               <li className="mr-4 text-center mt-4 flex justify-center ">
                 <a
                   className={
-                    "text-xs font-bold uppercase px-8 py-2  rounded-full  " +
+                    "text-xs font-bold uppercase px-10 py-3  rounded-full  " +
                     (openTab === id
-                      ? "text-white bg-" + "blue" + "-600"
-                      : "text-gray-400 bg-white ")
+                      ? "text-white bg-blue-600"
+                      : "text-gray-400  ")
                   }
                   onClick={(e) => {
                     e.preventDefault();
@@ -35,7 +35,7 @@ const Tabs = ({ data }) => {
           })}
         </ul>
 
-        <div className="tab-content tab-space flex w-full justify-between ">
+        <div className="tab-content tab-space flex w-full justify-between  ">
           {data.map(({ id, tabdata }) => {
             return (
               <div
