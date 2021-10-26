@@ -9,17 +9,19 @@ const HappnersCard = ({
 }) => {
   return (
     <>
-      <div className="border-2 border-blue-300 rounded-3xl flex flex-col p-6 items-center w-80">
-        <img className="w-16 h-16 rounded-full" src={Avatar} alt="avatar" />
-        <h1 className="text-lg font-medium text-blue-600">{name}</h1>
-        <p className="text-gray-400">{email}</p>
+      <div className="border-2 border-blue-300 rounded-2xl flex flex-col p-6 items-center w-60">
+        <div className="">
+        <img className="object-cover w-16 h-16 rounded-full" src={Avatar} alt="avatar" />
+        </div>
+        <h1 className="text-md font-medium text-blue-600">{name}</h1>
+        <p className="text-gray-400 text-xs">{email}</p>
         <div class="w-full mt-3 flex justify-evenly">
           {suggestion ? (
-            <Button size="full" type="primary" children="Follow" />
+            <Button size="small" type="primary" children="Follow" className="w-full"/>
           ) : following.includes(name) ? (
-            <Button size="full" type="primary" children="Unfollow" />
+            <Button size="small" type="primary" children="Unfollow" className="w-full"/>
           ) : (
-            <Button size="full" type="primary" children="Follow Back" />
+            <Button size="small" type="primary" children="Follow Back" className="w-full" />
           )}
         </div>
       </div>
