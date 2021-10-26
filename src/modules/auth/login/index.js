@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 
 const Login = () => {
 	const history = useHistory();
+	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState({
 		email: "",
 		password: "",
@@ -19,14 +20,17 @@ const Login = () => {
 
 	const onClickHandler = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 		try {
 			const res = await axios.post("/login", user);
+			setLoading(false);
 			console.log(res);
 			localStorage.setItem("accessToken", res.data.accessToken);
-			history.push("/");
+			history.push("/dashboard");
 			window.location.reload();
 		} catch (err) {
 			const msg = err.response.data.message;
+			setLoading(false);
 			console.log(msg);
 			toast.error(msg, {
 				position: "top-center",
@@ -84,6 +88,7 @@ const Login = () => {
 								children="Make It Happen 😎"
 								hasShadow={true}
 								onClick={onClickHandler}
+								isLoading={loading}
 							/>
 							<div className="text-center mt-2">
 								<Link to="/signup">
