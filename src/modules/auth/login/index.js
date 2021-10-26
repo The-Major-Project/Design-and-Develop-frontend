@@ -23,7 +23,7 @@ const Login = () => {
 			const res = await axios.post("/login", user);
 			console.log(res);
 			localStorage.setItem("accessToken", res.data.accessToken);
-			history.push("/");
+			history.push("/dashboard");
 			window.location.reload();
 		} catch (err) {
 			const msg = err.response.data.message;

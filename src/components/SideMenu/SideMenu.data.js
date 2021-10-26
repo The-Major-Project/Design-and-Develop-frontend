@@ -19,7 +19,7 @@ export const SideMenuItems = [
 		iconActive: <Dashboard width={activeWidth} height={activeHeight} />,
 		iconInactive: <DashboardIn width={inActiveWidth} height={inActiveHeight} />,
 		label: "Dashboard",
-		path: "/",
+		path: "/dashboard",
 	},
 	{
 		iconActive: <Profile />,
