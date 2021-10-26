@@ -16,7 +16,7 @@ const Router = () => {
 		<Switch>
 			{token ? (
 				<>
-					<Route exact path="/" component={DashBoard} />
+					<Route exact path="/dashboard" component={DashBoard} />
 					<Route exact path="/profile" component={Profile} />
 					<Route exact path="/notifications" component={Notifications} />
 					<Route exact path="/happners" component={Happners} />
