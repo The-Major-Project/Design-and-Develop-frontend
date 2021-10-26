@@ -53,8 +53,9 @@ const SideMenu = () => {
 				<h1 className="text-center text-xl font-bold text-blue-600 mb-12">
 					Design <span className="text-gray-900">&</span> Develop
 				</h1>
-				{SideMenuItems.map((item) => (
+				{SideMenuItems.map((item, index) => (
 					<SideMenuItem
+						key={index}
 						path={item.path}
 						label={item.label}
 						iconActive={item.iconActive}

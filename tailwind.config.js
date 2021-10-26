@@ -10,6 +10,10 @@ module.exports = {
 			},
 			spacing: {
 				85: "23rem",
+				100: "30rem",
+			},
+			backgroundColor: {
+				modalBG: "rgba(0, 0, 0, 0.4)",
 			},
 		},
 	},

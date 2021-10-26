@@ -1,10 +1,15 @@
-import React from "react";
-import Button from "../Button";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Button from "../Button";
+import PostCollabJobModal from "../PostCollabJobModal";
 import HandShake from "../../assets/HandShake.png";
+
 const DashboardBanner = () => {
+	const [showModal, setShowModal] = useState(false);
+
 	return (
 		<>
+			<PostCollabJobModal visible={showModal} setVisible={setShowModal} />
 			<div className="w-full xl px-4 py-10 flex flex-col items-center justify-center text-center border-2 border-blue-100  rounded-3xl md:flex-row md:text-left md:py-6 md:justify-between lg:justify-center lg:items-center">
 				<motion.img
 					whileHover={{ scale: 1.05 }}
@@ -25,6 +30,7 @@ const DashboardBanner = () => {
 						children="Create a Collab Post 📝"
 						size="medium"
 						className="mt-6"
+						onClick={() => setShowModal(!showModal)}
 					/>
 				</div>
 			</div>

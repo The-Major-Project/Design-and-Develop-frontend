@@ -8,6 +8,7 @@ import DashboardPostCard from "../../components/DashboardPostCard";
 
 const PostCardData = [
 	{
+		id: 123,
 		heading: "Design Management Platform",
 		description:
 			"Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guyssda",
@@ -17,6 +18,7 @@ const PostCardData = [
 		date: "15 June 2021",
 	},
 	{
+		id: 123,
 		heading: "Design Management Platform",
 		description:
 			"Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guyssda",
@@ -26,6 +28,7 @@ const PostCardData = [
 		date: "15 June 2021",
 	},
 	{
+		id: 123,
 		heading: "Design Management Platform",
 		description:
 			"Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guyssda",
@@ -35,6 +38,7 @@ const PostCardData = [
 		date: "15 June 2021",
 	},
 	{
+		id: 123,
 		heading: "Design Management Platform",
 		description:
 			"Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guyssda",
@@ -44,6 +48,7 @@ const PostCardData = [
 		date: "15 June 2021",
 	},
 	{
+		id: 123,
 		heading: "Design Management Platform",
 		description:
 			"Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guyssda",
@@ -53,6 +58,7 @@ const PostCardData = [
 		date: "15 June 2021",
 	},
 	{
+		id: 123,
 		heading: "Design Management Platform",
 		description:
 			"Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guyssda",
@@ -62,6 +68,7 @@ const PostCardData = [
 		date: "15 June 2021",
 	},
 	{
+		id: 123,
 		heading: "Design Management Platform",
 		description:
 			"Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guyssda",
@@ -115,8 +122,9 @@ const DashBoard = () => {
 					<DashboardBanner />
 					<div className="flex flex-wrap gap-10 mt-10">
 						{PostCardData &&
-							PostCardData.map((card) => (
+							PostCardData.map((card, index) => (
 								<DashboardPostCard
+									key={index}
 									user={card.user}
 									description={card.description}
 									requiredDesigner={card.requiredDesigner}
@@ -129,9 +137,6 @@ const DashBoard = () => {
 				</div>
 			}
 		/>
-		// <div>
-		// 	<form method="get">This is user dashboard</form>
-		// </div>
 	);
 };
 
