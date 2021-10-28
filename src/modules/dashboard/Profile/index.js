@@ -7,17 +7,13 @@ import { ReactComponent as DribbbleWhite } from "../../../assets/DashboardIcons/
 import { ReactComponent as GithubBlack } from "../../../assets/DashboardIcons/gitb.svg";
 import { ReactComponent as GithubWhite } from "../../../assets/DashboardIcons/gitw.svg";
 
-const Happners = () => {
+const Profile = () => {
   const data = [
     {
       id: 1,
       tabname: "Posts",
       tabdata: (
         <>
-          {/* <HappnersCard name="Mihir Verma" />
-          <HappnersCard name="Yash Sharma" />
-          <HappnersCard name="Manvi Jain" />
-          <HappnersCard name="Meemansha Jain" /> */}
         </>
       ),
     },
@@ -61,4 +57,4 @@ const Happners = () => {
   );
 };
 
-export default Happners;
+export default Profile;
