@@ -30,7 +30,7 @@ const DribbbleShotsCard = ({ coverImage, title, like, view }) => {
             <p className="ml-1">{like}</p>
           </div>
           <div className="inline-flex items-center mr-3">
-            <Eye width="15" />
+            <Eye width="14" />
             <p className="ml-1">{view}</p>
           </div>
         </div>
