@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../../../components/Layout";
 import SideMenu from "../../../components/SideMenu";
 import Tabs from "../../../components/Tabs";
+import GithubProfileCard from "../../../components/GithubProfileCard";
 import { ReactComponent as DribbbleBlack } from "../../../assets/DashboardIcons/dribblack.svg";
 import { ReactComponent as DribbbleWhite } from "../../../assets/DashboardIcons/dribw.svg";
 import { ReactComponent as GithubBlack } from "../../../assets/DashboardIcons/gitb.svg";
@@ -12,10 +13,7 @@ const Profile = () => {
     {
       id: 1,
       tabname: "Posts",
-      tabdata: (
-        <>
-        </>
-      ),
+      tabdata: <></>,
     },
     {
       id: 2,
@@ -24,7 +22,9 @@ const Profile = () => {
       inactive: <GithubBlack width="18" />,
       tabdata: (
         <>
-          
+          <GithubProfileCard language="Python" />
+          <GithubProfileCard language="Html" />
+          <GithubProfileCard language="Css" />
         </>
       ),
     },
@@ -33,11 +33,7 @@ const Profile = () => {
       tabname: "Shots",
       active: <DribbbleWhite width="18" />,
       inactive: <DribbbleBlack width="18" />,
-      tabdata: (
-        <>
-         
-        </>
-      ),
+      tabdata: <></>,
     },
   ];
   return (
