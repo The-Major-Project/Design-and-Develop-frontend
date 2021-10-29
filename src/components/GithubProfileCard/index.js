@@ -27,7 +27,7 @@ const GithubProfileCard = ({
   return (
     <>
       <motion.div
-        className="w-72 rounded-2xl px-4 py-5 border-2 cursor-pointer"
+        className="w-68 rounded-2xl px-4 py-5 border-2 cursor-pointer"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.9 }}
       >

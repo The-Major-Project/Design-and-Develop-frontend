@@ -10,6 +10,7 @@ module.exports = {
 			},
 			spacing: {
 				85: "23rem",
+				68: "16.5rem",
 				100: "30rem",
 			},
 			backgroundColor: {
