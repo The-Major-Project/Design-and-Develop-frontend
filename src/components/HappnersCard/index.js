@@ -11,7 +11,7 @@ const HappnersCard = ({
     <>
       <div className="border-2 border-blue-300 rounded-2xl flex flex-col p-6 items-center w-60">
         <div className="">
-        <img className="object-cover w-16 h-16 rounded-full" src={Avatar} alt="avatar" />
+        <img className="object-cover w-full h-16 rounded-full" src={Avatar} alt="avatar" />
         </div>
         <h1 className="text-md font-medium text-blue-600">{name}</h1>
         <p className="text-gray-400 text-xs">{email}</p>
