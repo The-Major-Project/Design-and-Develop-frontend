@@ -8,13 +8,18 @@ import { ReactComponent as DribbbleWhite } from "../../../assets/DashboardIcons/
 import { ReactComponent as GithubBlack } from "../../../assets/DashboardIcons/gitb.svg";
 import { ReactComponent as GithubWhite } from "../../../assets/DashboardIcons/gitw.svg";
 import DribbbleShotsCard from "../../../components/DribbbleShotsCard";
+import ProfilePost from "../../../components/ProfilePost";
 
 const Profile = () => {
   const data = [
     {
       id: 1,
       tabname: "Posts",
-      tabdata: <></>,
+      tabdata: <>
+      <ProfilePost/>
+      <ProfilePost/>
+      <ProfilePost/>
+      </>,
     },
     {
       id: 2,

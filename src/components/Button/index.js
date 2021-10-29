@@ -20,6 +20,7 @@ const Button = ({
 			"px-5 py-1": size === "small",
 			"px-8 py-3": size === "medium",
 			"w-full px-8 py-3": size === "full",
+			"w-10 h-10 rounded-xl":size==="icon",
 			"hover:shadow-btnShadow transition duration-500 ease-in-out": hasShadow,
 			"cursor-not-allowed": isLoading,
 			"opacity-50": isLoading,
