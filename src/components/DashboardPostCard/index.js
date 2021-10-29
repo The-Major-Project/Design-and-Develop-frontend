@@ -16,7 +16,7 @@ const DashboardPostCard = ({
 			<div className="border-2 border-blue-100 rounded-3xl p-8 w-full md:w-80 lg:w-85 mx-auto">
 				<div className="flex items-center">
 					<div className="w-20">
-						<img className="w-full" src={icon} alt="icondashboard" />
+						<img className="w-full object-cover object-center" src={icon} alt="icondashboard" />
 					</div>
 					<h1 className="text-xl text-blue-600 pl-2">{heading}</h1>
 				</div>

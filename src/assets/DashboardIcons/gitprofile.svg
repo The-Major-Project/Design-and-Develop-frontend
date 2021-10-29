@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="gitprofile" transform="translate(-858 -437)">
+    <g id="Ellipse_332" data-name="Ellipse 332" transform="translate(858 437)" fill="#fff" stroke="#c2dafe" stroke-width="1">
+      <circle cx="16" cy="16" r="16" stroke="none"/>
+      <circle cx="16" cy="16" r="15.5" fill="none"/>
+    </g>
+    <g id="Icon_ionic-md-bookmarks" data-name="Icon ionic-md-bookmarks" transform="translate(861.5 440.5)">
+      <path id="Path_91838" data-name="Path 91838" d="M27.943,4.5h-.929a1.806,1.806,0,0,1,1.009,1.89V19.61c0,.978-.31,1.651-1.009,1.89h.929a1.893,1.893,0,0,0,1.894-1.89V6.39A1.893,1.893,0,0,0,27.943,4.5Z" transform="translate(-8.343)" fill="#005ce6"/>
+      <path id="Path_91839" data-name="Path 91839" d="M16.959,4.509c-.062,0-.124-.009-.186-.009H6.39A1.9,1.9,0,0,0,4.5,6.39V19.61A1.9,1.9,0,0,0,6.39,21.5H16.777c.062,0,.124,0,.186-.009a1.9,1.9,0,0,0,1.7-1.881V6.39A1.9,1.9,0,0,0,16.959,4.509ZM10.873,13,8.395,11.581,5.916,13V5.916h4.957Z" fill="#005ce6"/>
+    </g>
+  </g>
+</svg>
