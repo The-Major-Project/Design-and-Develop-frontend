@@ -1,8 +1,9 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { ReactComponent as Heart } from "../../assets/DashboardIcons/heart.svg";
 import { ReactComponent as Eye } from "../../assets/DashboardIcons/eye.svg";
 
-const DribbbleShotsCard = ({ coverImage, title, like, view }) => {
+const DribbbleShotsCard = ({ coverImage, title, like, view, link }) => {
   const mystyle = {
     backgroundImage:
       "linear-gradient" +
@@ -17,7 +18,10 @@ const DribbbleShotsCard = ({ coverImage, title, like, view }) => {
   };
   return (
     <>
-      <div className="w-68 h-48 rounded-2xl relative" style={mystyle}>
+      <motion.div className="w-68 h-48 rounded-2xl relative cursor-pointer" style={mystyle}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.9 }}
+      >
         <h3
           className=" text-base font-bold absolute bottom-3 left-3 text-white truncate ..."
           style={{ "max-width": "13ch" }}
@@ -34,7 +38,7 @@ const DribbbleShotsCard = ({ coverImage, title, like, view }) => {
             <p className="ml-1">{view}</p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
