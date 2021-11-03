@@ -6,7 +6,7 @@ const NotificationBar = ({ userImg, userName, reqType }) => {
 	return (
 		<div className="flex flex-col px-6 py-8 md:py-4 my-6 mx-auto items-center border-2 border-blue-100 rounded-3xl w-full md:flex-row max-w-5xl">
 			<img
-				className="w-full h-16 object-cover object-center md:h-12 md:w-12 rounded-full"
+				className="w-16 h-16 object-cover object-center md:h-12 md:w-12 rounded-full"
 				src={icon}
 				alt={userName}
 			/>

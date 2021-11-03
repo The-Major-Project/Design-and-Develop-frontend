@@ -59,7 +59,7 @@ const ProfilePost = ({
               <div className="flex items-center">
                 <Button
                   size="small"
-                  children="View Request"
+                  children="View requests"
                   type="primary"
                   className="h-10 mr-2 "
                 />
