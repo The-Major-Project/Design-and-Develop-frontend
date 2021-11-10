@@ -17,7 +17,7 @@ const ProfilePost = ({
   it to make a type specimen book. It has survived not only five
   centuries, but also the leap into electronic typesetting, remaining
   essentially unchanged.`,
-  self = true,
+  self = false,
   requireddeveloper = 2,
   requiredDesigner = 5,
   date = "15 Jun 2021",
