@@ -5,7 +5,7 @@ const Tabs = ({ data }) => {
 
   return (
     <>
-      <div className="">
+      <div className="w-full">
         <ul
           className="flex list-none overflow-x-scroll mb-6 no-scrollbar md:justify-center "
           role="tablist"

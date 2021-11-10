@@ -24,7 +24,7 @@ const Layout = ({ sider, main }) => {
 				></div>
 
 				<div className="w-full flex flex-col min-h-screen">
-					<header className="flex w-full justify-evenly items-center bg-white px-6 py-3 sticky top-0 lg:z-20">
+					<header className="z-30 flex w-full justify-evenly items-center bg-white px-6 py-3 sticky top-0 lg:z-20">
 						<h1 className="hidden md:block text-2xl font-semibold text-gray-800">
 							Welcome Back, <span className="text-blue-600">Jessica!</span>
 						</h1>

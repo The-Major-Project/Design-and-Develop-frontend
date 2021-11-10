@@ -9,28 +9,39 @@ import { ReactComponent as GithubBlack } from "../../../assets/DashboardIcons/gi
 import { ReactComponent as GithubWhite } from "../../../assets/DashboardIcons/gitw.svg";
 import DribbbleShotsCard from "../../../components/DribbbleShotsCard";
 import ProfilePost from "../../../components/ProfilePost";
+import ProfileOverview from "../../../components/ProfileOverview";
 
 const Profile = () => {
   const data = [
     {
       id: 1,
       tabname: "Posts",
-      tabdata: <>
-      <ProfilePost/>
-      <ProfilePost/>
-      <ProfilePost/>
-      </>,
+      tabdata: (
+        <>
+          <ProfilePost />
+          <ProfilePost />
+          <ProfilePost />
+          <ProfilePost />
+          <ProfilePost />
+          <ProfilePost />
+          <ProfilePost />
+          <ProfilePost />
+          <ProfilePost />
+        </>
+      ),
     },
     {
       id: 2,
       tabname: "Repos",
       active: <GithubWhite width="18" />,
       inactive: <GithubBlack width="18" />,
-      tabdata: <>
-      <GithubProfileCard language="Python"/>
-      <GithubProfileCard language="Html"/>
-      <GithubProfileCard language="Css"/>
-      </>,
+      tabdata: (
+        <>
+          <GithubProfileCard language="Python" />
+          <GithubProfileCard language="Html" />
+          <GithubProfileCard language="Css" />
+        </>
+      ),
     },
     {
       id: 3,
@@ -66,9 +77,10 @@ const Profile = () => {
       <Layout
         sider={<SideMenu />}
         main={
-          <div className="flex">
-            <div className="left w-80 border-2"></div>
-            <div className="w-full flex pl-10">
+          <div className="flex flex-col lg:flex-row w-full ">
+            <ProfileOverview />
+
+            <div className="w-full flex lg:pl-10">
               <Tabs data={data} />
             </div>
           </div>
