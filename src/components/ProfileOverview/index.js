@@ -1,5 +1,6 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Banner from "../../assets/DashboardIcons/bannerimage.png";
+import Close from "../../assets/shared/closeImage.svg";
 import { ReactComponent as Location } from "../../assets/DashboardIcons/Location.svg";
 import { ReactComponent as Dribbble } from "../../assets/DashboardIcons/dribpink.svg";
 import { ReactComponent as Github } from "../../assets/DashboardIcons/gitcat.svg";
@@ -10,7 +11,8 @@ import Input from "../../components/Input";
 import ModalWrapper from "../ModalWrapper";
 import { toast } from "react-toastify";
 
-const ProfileOverview = ({ name = "Mihir", usertype="designer" }) => {
+const ProfileOverview = ({ name = "Mihir", usertype = "designer" }) => {
+  let base;
   const mystyle = {
     backgroundImage: "url(" + `${Banner}` + ")",
     backgroundPosition: "center",
@@ -23,40 +25,36 @@ const ProfileOverview = ({ name = "Mihir", usertype="designer" }) => {
   //   maxHeight: "10em",
   //   boxShadow: "0px 0px 20px 0 rgba(0, 92, 230, 0.14)",
   //   borderRadius:"0px 0px 20px 20px",
-    
+
   // }
   const [visibleEditProfile, setVisibleEditProfile] = useState(false);
-
+  const [previewSource, setPreviewSource] = useState();
   const [editPostData, setEditPostData] = useState({
     username: name,
     city: "",
     country: "",
     description: "I Love Coffee",
     email: "",
-    dribbbleUsername:"",
-    githubUsername:"",
-    portfolioURL:""
+    dribbbleUsername: "",
+    githubUsername: "",
+    portfolioURL: "",
   });
   const [citiesArray, setCitiesArray] = useState([]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     console.log(editPostData);
-    toast.success("Your post is successfully updated💯", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    // uploadImage(previewSource)
     setVisibleEditProfile(!visibleEditProfile);
   };
 
-// useEffect(() => {
-//   console.log(citiesArray)
-// })
+  // const uploadImage = (base64EncodedImage) => {
+  //   console.log(base64EncodedImage)
+  // }
+
+  // useEffect(() => {
+  //   console.log(citiesArray)
+  // })
 
   return (
     <>
@@ -159,7 +157,7 @@ const ProfileOverview = ({ name = "Mihir", usertype="designer" }) => {
             />
             <datalist id="cities">
               {citiesArray.map((city) => (
-                <option  value={city.name +", "+ city.country.name} />
+                <option value={city.name + ", " + city.country.name} />
               ))}
             </datalist>
 
@@ -174,33 +172,32 @@ const ProfileOverview = ({ name = "Mihir", usertype="designer" }) => {
               setState={setEditPostData}
               labelClass="mt-4"
             />
-            {
-              usertype === "designer"?
+            {usertype === "designer" ? (
               <Input
-              label="Dribbble Username"
-              inputType="input"
-              type="text"
-              placeholder="Enter your username"
-              name="dribbbleUsername"
-              value={editPostData.dribbbleUsername}
-              state={editPostData}
-              setState={setEditPostData}
-              labelClass="mt-4"
-            />
-            :
+                label="Dribbble Username"
+                inputType="input"
+                type="text"
+                placeholder="Enter your username"
+                name="dribbbleUsername"
+                value={editPostData.dribbbleUsername}
+                state={editPostData}
+                setState={setEditPostData}
+                labelClass="mt-4"
+              />
+            ) : (
+              <Input
+                label="Github Username"
+                inputType="input"
+                type="text"
+                placeholder="Enter your Username"
+                name="githubUsername"
+                value={editPostData.githubUsername}
+                state={editPostData}
+                setState={setEditPostData}
+                labelClass="mt-4"
+              />
+            )}
             <Input
-              label="Github Username"
-              inputType="input"
-              type="text"
-              placeholder="Enter your Username"
-              name="githubUsername"
-              value={editPostData.githubUsername}
-              state={editPostData}
-              setState={setEditPostData}
-              labelClass="mt-4"
-            />
-            }
-             <Input
               label="Portfolio URL"
               inputType="input"
               type="text"
@@ -211,7 +208,7 @@ const ProfileOverview = ({ name = "Mihir", usertype="designer" }) => {
               setState={setEditPostData}
               labelClass="mt-4"
             />
-             <Input
+            <Input
               label="Description"
               inputType="textarea"
               placeholder="Description about you"
@@ -222,28 +219,34 @@ const ProfileOverview = ({ name = "Mihir", usertype="designer" }) => {
               labelClass="mt-4"
               rows={3}
             />
-          {/*  <Input
-              label="Developers required"
-              inputType="input"
-              type="number"
-              placeholder="e.g. 2"
-              name="developers"
-              value={editPostData.developers}
-              state={editPostData}
-              setState={setEditPostData}
-              labelClass="mt-4"
-            />
             <Input
-              label="Designers required"
+              label="Profile image"
               inputType="input"
-              type="number"
-              placeholder="e.g. 2"
-              name="designers"
-              value={editPostData.designers}
+              type="file"
+              placeholder="choose image"
+              name="profileimage"
+              value={editPostData.profileimage}
               state={editPostData}
               setState={setEditPostData}
               labelClass="mt-4"
-            /> */}
+              setPreviewSource={setPreviewSource}
+              previewSource={previewSource}
+            />
+            {previewSource ? (
+              <div>
+                <img
+                  src={previewSource}
+                  alt="profileImage"
+                  className="w-40 mt-2 rounded-xl shadow-xl object-cover"
+                />
+                <button
+                  onClick={() => setPreviewSource(null)}
+                  className="flex items-center my-2"
+                >
+                  <img src={Close} alt="profileImage" className="mr-2" /> Remove
+                </button>
+              </div>
+            ) : null}
             <Button type="primary" size="full" className="my-4">
               Update Profile 😎
             </Button>
