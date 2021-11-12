@@ -18,6 +18,8 @@ const Input = ({
   list,
   setCitiesArray,
   citiesArray,
+  setPreviewSource,
+  previewSource,
 }) => {
   let inputName, inputValue;
   const onChangeHandler = (event) => {
@@ -27,6 +29,22 @@ const Input = ({
   };
   const onRadioChange = (event) => {
     setState({ ...state, selected: event.target.value });
+  };
+  const onFileChange = (event) => {
+    inputName = event.target.name;
+    const file = event.target.files[0];
+    previewFile(file);
+  };
+  const uploadImage = (base64EncodedImage) => {
+    return base64EncodedImage;
+  };
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+      setState({ ...state, profile: uploadImage(reader.result) });
+    };
   };
 
   const StylesForInput = cx(
@@ -49,6 +67,7 @@ const Input = ({
         type === "password" ||
         type === "number" ||
         type === "email" ||
+        type === "file" ||
         inputType === "textarea",
       "text-base ml-3 font-medium my-auto":
         type === "radio" && inputType === "input",
@@ -62,6 +81,7 @@ const Input = ({
       type === "password" ||
       type === "number" ||
       type === "email" ||
+      type === "file" ||
       inputType === "textarea",
     "flex w-min flex-row flex-row-reverse items-center": type === "radio",
   });
@@ -80,7 +100,9 @@ const Input = ({
           placeholder={placeholder}
           value={value}
           onChange={
-            id === "city"
+            type === "file"
+              ? onFileChange
+              : id === "city"
               ? (event) => {
                   autoSuggest(
                     state.city,
