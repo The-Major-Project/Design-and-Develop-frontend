@@ -11,7 +11,7 @@ const PostCardData = [
 		id: 123,
 		heading: "Design Management Platform",
 		description:
-			"Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guys I am building a platform for many people if interested collab with me!Hey guyssda",
+			"Hey guys I am bu am building a platform for many people if interested collab with me!Hey guyssda",
 		requireddeveloper: 2,
 		requiredDesigner: 1,
 		user: "Mihir Verma",
