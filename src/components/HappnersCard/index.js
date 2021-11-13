@@ -3,6 +3,7 @@ import Avatar from "../../assets/avatar.jpg";
 import Button from "../Button";
 const HappnersCard = ({
   name = "Bhanu pratap singh kushwah",
+  userId,
   email = "example@example.com",
   following,
   suggestion = true,

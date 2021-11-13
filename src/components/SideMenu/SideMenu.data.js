@@ -13,7 +13,7 @@ const activeWidth = 22;
 const activeHeight = 23;
 const inActiveWidth = 19;
 const inActiveHeight = 20;
-
+const userId = localStorage.getItem("userId");
 export const SideMenuItems = [
 	{
 		iconActive: <Dashboard width={activeWidth} height={activeHeight} />,
@@ -25,7 +25,7 @@ export const SideMenuItems = [
 		iconActive: <Profile />,
 		iconInactive: <ProfileIn />,
 		label: "Profile",
-		path: "/profile",
+		path: `/profile/user/${userId}`,
 	},
 	{
 		iconActive: <Notification />,

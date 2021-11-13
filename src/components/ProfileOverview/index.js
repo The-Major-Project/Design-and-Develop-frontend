@@ -11,8 +11,21 @@ import Input from "../../components/Input";
 import ModalWrapper from "../ModalWrapper";
 import { toast } from "react-toastify";
 
-const ProfileOverview = ({ name = "Mihir", usertype = "designer" }) => {
-  let base;
+const ProfileOverview = ({
+  name = "Mihir",
+  usertype = "designer",
+  self,
+  city,
+  country,
+  email,
+  portfolioURL,
+  dribbbleUsername,
+  githubUsername,
+  following = [2, 3, 4],
+  followers = [5, 6, 7, 1],
+  userId = 1,
+  //userId uski hai jiski profile kholi hai
+}) => {
   const mystyle = {
     backgroundImage: "url(" + `${Banner}` + ")",
     backgroundPosition: "center",
@@ -20,13 +33,7 @@ const ProfileOverview = ({ name = "Mihir", usertype = "designer" }) => {
     backgroundRepeat: "no-repeat",
     borderRadius: "23px 23px 0 0 ",
   };
-  // const datalistStyles = {
-  //   // position: "absolute",
-  //   maxHeight: "10em",
-  //   boxShadow: "0px 0px 20px 0 rgba(0, 92, 230, 0.14)",
-  //   borderRadius:"0px 0px 20px 20px",
 
-  // }
   const [visibleEditProfile, setVisibleEditProfile] = useState(false);
   const [previewSource, setPreviewSource] = useState();
   const [editPostData, setEditPostData] = useState({
@@ -38,6 +45,7 @@ const ProfileOverview = ({ name = "Mihir", usertype = "designer" }) => {
     dribbbleUsername: "",
     githubUsername: "",
     portfolioURL: "",
+    following: [],
   });
   const [citiesArray, setCitiesArray] = useState([]);
 
@@ -105,13 +113,36 @@ const ProfileOverview = ({ name = "Mihir", usertype = "designer" }) => {
                 <Link width="22" /> <span className="ml-2">yash@gmail.com</span>
               </li>
             </ul>
-            <Button
-              className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
-              size="small"
-              onClick={() => setVisibleEditProfile(!visibleEditProfile)}
-            >
-              Edit profile ✏️
-            </Button>
+            {self ? (
+              <Button
+                className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
+                size="small"
+                onClick={() => setVisibleEditProfile(!visibleEditProfile)}
+              >
+                Edit profile ✏️
+              </Button>
+            ) : !following.includes(userId) && !followers.includes(userId) ? (
+              <Button
+                size="small"
+                type="primary"
+                children="Follow"
+                className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
+              />
+            ) : followers.includes(userId) && !following.includes(userId) ? (
+              <Button
+                size="small"
+                type="primary"
+                children="Follow Back"
+                className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
+              />
+            ) : (
+              <Button
+                size="small"
+                type="primary"
+                children="Unfollow"
+                className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
+              />
+            )}
           </div>
         </div>
       </div>
