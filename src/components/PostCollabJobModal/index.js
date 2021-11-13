@@ -49,7 +49,7 @@ const PostCollabJobModal = ({ visible, setVisible }) => {
 						labelClass="mt-4"
 					/>
 					<Input
-						label="Title"
+						label="Description"
 						inputType="textarea"
 						placeholder="Description of your project"
 						name="description"

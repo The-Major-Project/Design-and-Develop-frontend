@@ -22,10 +22,11 @@ const Login = () => {
 		e.preventDefault();
 		setLoading(true);
 		try {
-			const res = await axios.post("/login", user);
+			const res = await axios.post("/api/auth/login", user);
 			setLoading(false);
 			console.log(res);
 			localStorage.setItem("accessToken", res.data.accessToken);
+			localStorage.setItem("userId", res.data.userId);
 			history.push("/dashboard");
 			window.location.reload();
 		} catch (err) {

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Layout from "../../../components/Layout";
 import SideMenu from "../../../components/SideMenu";
 import Tabs from "../../../components/Tabs";
@@ -12,21 +13,34 @@ import ProfilePost from "../../../components/ProfilePost";
 import ProfileOverview from "../../../components/ProfileOverview";
 
 const Profile = () => {
+  const params = useParams();
+  const [self, setSelf] = useState();
+
+  useEffect(() => {
+    console.log("this is param id = ", params.id);
+    if (params.id === localStorage.getItem("userId")) {
+      setSelf(true);
+    } else {
+      setSelf(false);
+    }
+  }, [params.id]);
+
   const data = [
     {
       id: 1,
       tabname: "Posts",
       tabdata: (
         <>
-          <ProfilePost />
-          <ProfilePost />
-          <ProfilePost />
-          <ProfilePost />
-          <ProfilePost />
-          <ProfilePost />
-          <ProfilePost />
-          <ProfilePost />
-          <ProfilePost />
+          <ProfilePost self={self} />
+          <ProfilePost self={self} />
+          <ProfilePost self={self} />
+          <ProfilePost self={self} />
+          <ProfilePost self={self} />
+          <ProfilePost self={self} />
+          <ProfilePost self={self} />
+          <ProfilePost self={self} />
+          <ProfilePost self={self} />
+         
         </>
       ),
     },
@@ -78,7 +92,7 @@ const Profile = () => {
         sider={<SideMenu />}
         main={
           <div className="flex flex-col lg:flex-row w-full ">
-            <ProfileOverview />
+            <ProfileOverview self={self} />
 
             <div className="w-full flex lg:pl-10">
               <Tabs data={data} />

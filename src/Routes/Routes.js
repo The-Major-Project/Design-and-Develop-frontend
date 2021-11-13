@@ -12,31 +12,29 @@ import Messages from "../modules/dashboard/Messages";
 let token = localStorage.getItem("accessToken");
 
 const Router = () => {
-	return (
-		<Switch>
-			{token ? (
-				<>
-					<Route exact path="/dashboard" component={DashBoard} />
-					<Route exact path="/profile" component={Profile} />
-					<Route exact path="/notifications" component={Notifications} />
-					<Route exact path="/happners" component={Happners} />
-					<Route exact path="/messages" component={Messages} />
-					<Route exact path="/login">
-						<Redirect to="/" />
-					</Route>
-					<Route exact path="/signup">
-						<Redirect to="/" />
-					</Route>
-				</>
-			) : (
-				<>
-					<Route exact path="/" component={Home} />
-					<Route exact path="/login" component={Login} />
-					<Route exact path="/signup" component={Signup} />
-				</>
-			)}
-		</Switch>
-	);
+  return (
+    <Switch>
+      {token ? (
+        <>
+          <Route exact path="/dashboard" component={DashBoard} />
+          <Route exact path="/profile/user/:id" component={Profile} />
+          <Route exact path="/notifications" component={Notifications} />
+          <Route exact path="/happners" component={Happners} />
+          <Route exact path="/messages" component={Messages} />
+
+          <Route  path="/:anything">
+            <Redirect to="/dashboard" />
+          </Route>
+        </>
+      ) : (
+        <>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+        </>
+      )}
+    </Switch>
+  );
 };
 
 export default Router;

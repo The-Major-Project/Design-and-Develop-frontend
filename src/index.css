@@ -31,6 +31,18 @@
     scrollbar-width: none;  /* Firefox */
 }
 
+/* file selector button */
+input[type=file]::file-selector-button {
+	border: none;
+	padding: .2em .4em;
+	border-radius: .2em;
+	background-color: #2563EB;
+	transition: 1s;
+	color: #fff;
+	font-weight: 500;
+	cursor: pointer;
+  }
+
 /* GILROY CUSTOM FONT FAMILY  */
 @font-face {
 	font-family: "gblack";
