@@ -37,7 +37,7 @@ const NotificationBar = ({ userImg, userName, reqType }) => {
 					<Button
 						className="md:ml-auto"
 						size="small"
-						type="primary"
+						type="success"
 						children="View Group"
 					/>
 				</>
