@@ -80,9 +80,8 @@ const PostCardData = [
 ];
 
 const DashBoard = () => {
+  const userId = localStorage.getItem("userId");
   const history = useHistory();
-
-  //   VERIFIYING FOR THE ACCESS TO THIS PAGE
   const verifyDashboard = async () => {
     try {
       const res = await axios.get("/", {
@@ -108,11 +107,49 @@ const DashBoard = () => {
     }
   };
 
-  // USING THIS EFFECT HOOK FOR JWT VERIFICATION
   useEffect(() => {
-    verifyDashboard();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    verifyDashboard();
+    const getUser = async () => {
+      try {
+        const res = await axios.get(`/api/user/${userId}`, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        });
+
+        const resPost = await axios.get(`/api/posts/${userId}/allposts`, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            accessToken: localStorage.getItem("accessToken"),
+            userId: userId,
+          },
+        });
+
+        console.log(res);
+        console.log(resPost);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUser();
   }, []);
+
+  // useEffect(() => {
+  //   const getPosts = async () => {
+  //     try {
+
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   getPosts();
+  // }, []);
 
   return (
     <Layout
