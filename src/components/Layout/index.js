@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Ham from "../../assets/Ham.svg";
 import { motion } from "framer-motion";
 import Search from "../Search";
+import { stateContext } from "../../context/DNDContext";
 
 const Layout = ({ sider, main }) => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
 	const asideStyles = isSidebarOpen ? "translate-x-0 " : "-translate-x-full";
 	const backDropStyles = isSidebarOpen ? "fixed " : "hidden";
+
+	const { currentUser } = useContext(stateContext);
 
 	return (
 		<>
@@ -26,7 +29,8 @@ const Layout = ({ sider, main }) => {
 				<div className="w-full flex flex-col min-h-screen">
 					<header className="z-30 flex w-full justify-evenly items-center bg-white px-6 py-3 sticky top-0 lg:z-20">
 						<h1 className="hidden md:block text-2xl font-semibold text-gray-800">
-							Welcome Back, <span className="text-blue-600">Jessica!</span>
+							Welcome Back,{" "}
+							<span className="text-blue-600">{currentUser.name}</span>
 						</h1>
 						<Search />
 						<div
