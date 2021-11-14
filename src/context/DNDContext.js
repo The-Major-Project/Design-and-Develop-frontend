@@ -1,23 +1,21 @@
 import React, { useState, createContext } from "react";
 
-export const DNDContext = createContext();
+export const stateContext = createContext();
 
 export const DNDContextProvider = (props) => {
-	// const [x, setX] = useState([]);
-	// const [name, setName] = useState("");
+	const [currentUser, setCurrentUser] = useState({});
+	const [dashboardPosts, setDashboardPosts] = useState([]);
 
 	return (
-		<DNDContext.Provider
-			value={
-				{
-					// x: x,
-					// setX: setX,
-					// name,
-					// setName,
-				}
-			}
+		<stateContext.Provider
+			value={{
+				currentUser,
+				setCurrentUser,
+				dashboardPosts,
+				setDashboardPosts,
+			}}
 		>
 			{props.children}
-		</DNDContext.Provider>
+		</stateContext.Provider>
 	);
 };
