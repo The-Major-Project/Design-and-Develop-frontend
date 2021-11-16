@@ -6,28 +6,25 @@ import { ReactComponent as Star } from "../../assets/DashboardIcons/star.svg";
 import { ReactComponent as Avatar } from "../../assets/DashboardIcons/gitprofile.svg";
 
 const GithubProfileCard = ({
-  title = "Design & Develop",
-  description = `is simply dummy text of the printing and typesetting industry. Lorem
-  Ipsum has been the industry's standard dummy text ever since the
-  1500s, when an unknown printer took a galley of type and scrambled
-  it to make a type specimen book. It has survived not only five
-  centuries, but also the leap into electronic typesetting, remaining
-  essentially unchanged.`,
-  fork = "10",
-  star = "20",
-  language = "Javascript",
+  title,
+  description,
+  fork,
+  star,
+  language,
 }) => {
   const languageDot = cx({
     "bg-indigo-600": language === "Python",
-    "bg-yellow-300": language === "Javascript",
-    "bg-orange-400": language === "Java",
-    "bg-red-500": language === "Html",
-    "bg-pink-400": language === "Css",
+    "bg-blue-300": language === "TypeScript",
+    "bg-yellow-300": language === "JavaScript",
+    "bg-purple-400": language === "Java",
+    "bg-red-500": language === "HTML" || null,
+    "bg-pink-400": language === "CSS",
+    "bg-green-600": language === "Jupyter Notebook",
   });
   return (
     <>
       <motion.div
-        className="w-68 rounded-2xl px-4 py-5 border-2 cursor-pointer"
+        className="w-68 rounded-2xl px-4 py-5 border-2 cursor-pointer flex flex-col justify-between"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.9 }}
       >

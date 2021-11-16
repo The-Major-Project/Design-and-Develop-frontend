@@ -11,10 +11,55 @@ import { ReactComponent as GithubWhite } from "../../../assets/DashboardIcons/gi
 import DribbbleShotsCard from "../../../components/DribbbleShotsCard";
 import ProfilePost from "../../../components/ProfilePost";
 import ProfileOverview from "../../../components/ProfileOverview";
+import axiosInstance from "../../../api/api";
+import axios from "axios";
 
 const Profile = () => {
   const params = useParams();
   const [self, setSelf] = useState();
+  const [gitRepos, setGitRepos] = useState([]);
+  const [urlUser, setUrlUser] = useState();
+  const [userPost, setUserPost] = useState([]);
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axiosInstance.get(`/api/user/${params.id}`, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        });
+        const resPost = await axiosInstance.get(`/api/posts/${params.id}/all`, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            accessToken: localStorage.getItem("accessToken"),
+            userId: params.id,
+          },
+        });
+        setUrlUser(res.data.data);
+        setUserPost(resPost.data.data);
+
+        const gitPost = await axios.get(
+          `https://api.github.com/users/${res.data.data.githubusername}/repos`
+        );
+
+        // const dribShots = await axios.get(
+        //   `https://api.dribbble.com/v2/user/shots?access_token=`
+        // );
+        // console.log(dribShots);
+        setGitRepos(gitPost.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     console.log("this is param id = ", params.id);
@@ -31,16 +76,19 @@ const Profile = () => {
       tabname: "Posts",
       tabdata: (
         <>
-          <ProfilePost self={self} />
-          <ProfilePost self={self} />
-          <ProfilePost self={self} />
-          <ProfilePost self={self} />
-          <ProfilePost self={self} />
-          <ProfilePost self={self} />
-          <ProfilePost self={self} />
-          <ProfilePost self={self} />
-          <ProfilePost self={self} />
-         
+          {userPost.map((post) => {
+            return (
+              <ProfilePost
+                title={post.title}
+                description={post.description}
+                requiredDesigner={post.designer}
+                developer={post.developer}
+                key={post._id}
+                self={self}
+                date={post.updatedAt.substring(0, 10)}
+              />
+            );
+          })}
         </>
       ),
     },
@@ -51,9 +99,18 @@ const Profile = () => {
       inactive: <GithubBlack width="18" />,
       tabdata: (
         <>
-          <GithubProfileCard language="Python" />
-          <GithubProfileCard language="Html" />
-          <GithubProfileCard language="Css" />
+          {gitRepos.map((repo) => {
+            return (
+              <GithubProfileCard
+                title={repo.name}
+                description={repo.description}
+                fork={repo.forks_count}
+                star={repo.stargazers_count}
+                key={repo.id}
+                language={repo.language}
+              />
+            );
+          })}
         </>
       ),
     },
