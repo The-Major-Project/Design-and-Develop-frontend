@@ -1,28 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Input from "../Input";
 import Button from "../Button";
 import { ReactComponent as Cross } from "../../assets/X.svg";
 import { toast } from "react-toastify";
+import axios from "../../api/api";
+import { stateContext } from "../../context/DNDContext";
 
 const PostCollabJobModal = ({ visible, setVisible }) => {
+	const { currentUser } = useContext(stateContext);
 	const [postData, setPostData] = useState({
 		title: "",
 		description: "",
-		developers: 0,
-		designers: 0,
+		developer: 0,
+		designer: 0,
+		userId: currentUser._id,
+		userName: currentUser.name,
 	});
-
-	const onSubmitHandler = (e) => {
+	const onSubmitHandler = async (e) => {
 		e.preventDefault();
 		console.log(postData);
-		toast.success("Your collab job is successfully posted 💯", {
-			position: "top-center",
-			autoClose: 5000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
+		// Add post to db
+		try {
+			const res = await axios.post("/api/posts", postData);
+			console.log(res);
+			// console.log(currentUser.name, currentUser._id);
+			toast.success("Your collab job is successfully posted 💯", {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		} catch (err) {
+			const msg = err.response.data.message;
+			console.log(msg);
+			toast.error(msg, {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
+		setPostData({
+			title: "",
+			description: "",
+			designer: 0,
+			developer: 0,
 		});
 		setVisible(!visible);
 	};
@@ -64,8 +92,8 @@ const PostCollabJobModal = ({ visible, setVisible }) => {
 						inputType="input"
 						type="number"
 						placeholder="e.g. 2"
-						name="developers"
-						value={postData.developers}
+						name="developer"
+						value={postData.developer}
 						state={postData}
 						setState={setPostData}
 						labelClass="mt-4"
@@ -75,8 +103,8 @@ const PostCollabJobModal = ({ visible, setVisible }) => {
 						inputType="input"
 						type="number"
 						placeholder="e.g. 2"
-						name="designers"
-						value={postData.designers}
+						name="designer"
+						value={postData.designer}
 						state={postData}
 						setState={setPostData}
 						labelClass="mt-4"
