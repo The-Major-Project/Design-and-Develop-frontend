@@ -1,0 +1,50 @@
+[
+  {
+    "notifId": "95f11f24-82c0-40cc-9d7d-fb788f765a2d",
+    "username": "Archibold Presman",
+    "reqType": "collabReq",
+    "userId": "6151622f215142bc6ff1005f",
+    "userImg": "http://dummyimage.com/164x100.png/dddddd/000000",
+    "postId": "618cb18c47fd3958560fe191"
+  },
+  {
+    "notifId": "aa6d6794-843c-460c-8b78-e2595b05087a",
+    "username": "Zebadiah Manthroppe",
+    "reqType": "collabRes",
+    "userId": "61938046fc13ae3ea00008b3",
+    "userImg": "http://dummyimage.com/104x100.png/5fa2dd/ffffff",
+    "postId": "0c0d8d96-531f-4edb-b197-62fca4b04b79"
+  },
+  {
+    "notifId": "13d79df2-2392-45ca-8686-1e2b3a2fbf79",
+    "username": "Lewie Fealey",
+    "reqType": "collabReq",
+    "userId": "61938046fc13ae3ea00008b4",
+    "userImg": "http://dummyimage.com/114x100.png/dddddd/000000",
+    "postId": "6e6e459a-b166-453d-8048-45671ea6fc53"
+  },
+  {
+    "notifId": "0721cd97-b2b9-43ab-8734-c711ecc59493",
+    "username": "Darci Saffill",
+    "reqType": "startedFollowing",
+    "userId": "61522382fd9f1f27fd754156",
+    "userImg": "http://dummyimage.com/148x100.png/cc0000/ffffff",
+    "postId": "eb674024-7503-46f4-bfc2-51af780f03ec"
+  },
+  {
+    "notifId": "a752ab83-1c10-4bc8-b8b7-9bab83203efa",
+    "username": "Lynelle Searl",
+    "reqType": "collabRes",
+    "userId": "61938046fc13ae3ea00008b6",
+    "userImg": "http://dummyimage.com/174x100.png/ff4444/ffffff",
+    "postId": "0a1c3746-20c9-4972-b95b-a055921cd6b7"
+  },
+  {
+    "notifId": "dab7af0a-91d1-4e77-b8e6-29263990e39d",
+    "username": "Reggi Penwell",
+    "reqType": "startedFollowing",
+    "userId": "615385a5f2a758cb46d1207d",
+    "userImg": "http://dummyimage.com/186x100.png/cc0000/ffffff",
+    "postId": "f64fafcd-b2be-4de4-ada8-4fcab4d6bf5e"
+  }
+]
