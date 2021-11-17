@@ -9,21 +9,30 @@ import { stateContext } from "../../context/DNDContext";
 const PostCollabJobModal = ({ visible, setVisible }) => {
 	const { currentUser } = useContext(stateContext);
 	const [postData, setPostData] = useState({
+		// userId: currentUser._id,
+		// userName: currentUser.name,
 		title: "",
 		description: "",
 		developer: 0,
 		designer: 0,
-		userId: currentUser._id,
-		userName: currentUser.name,
+		// img: currentUser.profileimage,
 	});
 	const onSubmitHandler = async (e) => {
 		e.preventDefault();
 		console.log(postData);
 		// Add post to db
 		try {
-			const res = await axios.post("/api/posts", postData);
+			const res = await axios.post("/api/posts", {
+				userId: currentUser._id,
+				userName: currentUser.name,
+				title: postData.title,
+				description: postData.description,
+				developer: postData.developer,
+				designer: postData.designer,
+				img: currentUser.profileimage,
+			});
 			console.log(res);
-			// console.log(currentUser.name, currentUser._id);
+			console.log(currentUser.name, currentUser._id, currentUser.profileimage);
 			toast.success("Your collab job is successfully posted 💯", {
 				position: "top-center",
 				autoClose: 5000,
