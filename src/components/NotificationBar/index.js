@@ -11,6 +11,7 @@ const NotificationBar = ({
 	userImg,
 	postId,
 }) => {
+	// eslint-disable-next-line no-unused-vars
 	const [post, setPost] = useState(null);
 
 	// const acceptCollabReq = () => {
