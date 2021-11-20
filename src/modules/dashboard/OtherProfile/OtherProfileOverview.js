@@ -16,426 +16,180 @@ import { stateContext } from "../../../context/DNDContext";
 import { useHistory, useParams } from "react-router";
 
 const OtherProfileOverview = ({
-	name,
-	usertype,
-	self,
-	city,
-	address,
-	description,
-	country,
-	email,
-	portfolioURL,
-	dribbbleusername,
-	githubUsername,
-	following = [2, 3, 4],
-	followers = [5, 6, 7, 1],
+  name,
+  usertype,
+  self,
+  city,
+  address,
+  description,
+  country,
+  email,
+  portfolioURL,
+  profileimage,
+  dribbbleusername,
+  githubusername,
+  following = [2, 3, 4],
+  followers = [5, 6, 7, 1],
 }) => {
-	const params = useParams();
-	const [gitRepos, setGitRepos] = useState([]);
-	// eslint-disable-next-line no-unused-vars
-	const [urlUser, setUrlUser] = useState();
-	const [userPost, setUserPost] = useState([]);
-	// const [self, setSelf] = useState();
-	// const [otherUser, setOtherUser] = useState({});
-	useEffect(() => {
-		const getOtherUSer = async () => {
-			try {
-				const res = await axiosInstance.get(`/api/user/${params.id}`, {
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-						"Access-Control-Allow-Origin": "*",
-						accessToken: localStorage.getItem("accessToken"),
-					},
-				});
-				setUrlUser(res.data.data);
-				console.log(urlUser);
-				// setGitRepos(gitPost.data);
-				// console.log(gitRepos);
-			} catch (err) {
-				console.log(err);
-			}
-		};
-		getOtherUSer();
-	}, []);
+  useEffect(() => {}, []);
 
-	const mystyle = {
-		// eslint-disable-next-line no-useless-concat
-		backgroundImage: "url(" + `${Banner}` + ")",
-		backgroundPosition: "center",
-		backgroundSize: "cover",
-		backgroundRepeat: "no-repeat",
-		borderRadius: "23px 23px 0 0 ",
-	};
+  const mystyle = {
+    // eslint-disable-next-line no-useless-concat
+    backgroundImage: "url(" + `${Banner}` + ")",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    borderRadius: "23px 23px 0 0 ",
+  };
 
-	const { currentUser } = useContext(stateContext);
+  const { currentUser } = useContext(stateContext);
+  const userId = localStorage.getItem("userId");
+  const [visibleEditProfile, setVisibleEditProfile] = useState(false);
 
-	let data;
-	let files;
-	let history = useHistory();
-	const userId = localStorage.getItem("userId");
-	const [visibleEditProfile, setVisibleEditProfile] = useState(false);
-	const [citiesArray, setCitiesArray] = useState([]);
-	const [editPostData, setEditPostData] = useState({
-		username: currentUser.name,
-		city: currentUser.address,
-		description: currentUser.description,
-		email: currentUser.email,
-		dribbbleusername: currentUser.dribbbleusername,
-		githubUsername: currentUser.githubusername,
-		portfolioURL: currentUser.profileurl,
-		following: [],
-		profileimage: "",
-	});
+  const commonAvatar =
+    "https://cdn.dribbble.com/users/281679/screenshots/14892777/media/dda7cef00b08512ac10faec0cd7c630d.png?compress=1&resize=1600x1200";
 
-	const uploadImage = async (e) => {
-		files = e.target.files;
-	};
+  return (
+    <>
+      <div className="lg:w-96 h-110 max-h-110 rounded-3xl lg:sticky lg:top-28  shadow-tabShadows sm:mx-auto sm:w-full">
+        <div className="w-full h-24 py-2 px-4 " style={mystyle}>
+          <div className="rounded-full h-20  w-20 mx-auto absolute inset-x-1/4 top-36 lg:top-12 lg:inset-x-1/4  p-1 bg-white shadow-tabShadow">
+            <img
+              src={profileimage || commonAvatar}
+              alt="banner"
+              className="rounded-full w-full h-full object-cover object-center  mx-auto z-0"
+            />
+          </div>
+          <div className="info w-full text-center mt-32 ">
+            <p className="text-base font-semibold">{name}</p>
+            <p className="text-sm font-medium text-gray-400 capitalize">
+              {usertype === "both"
+                ? "Designer, Developer"
+                : currentUser.usertype}
+            </p>
+            <div className=" items-center">
+              {address != null || "" || undefined ? (
+                <div className="inline-flex items-center mx-auto mt-2">
+                  <Location />{" "}
+                  <p className="text-xs font-semibold ml-1">{address}</p>
+                </div>
+              ) : null}
+            </div>
+          </div>
+          <div className="mt-3">
+            <p
+              className="text-sm overflow-clip overflow-hidden text-justify  "
+              style={{ "max-height": "100px" }}
+            >
+              {description}
+            </p>
+            <ul className="list-none text-xs mt-4 font-semibold text-gray-500">
+              <li className="flex mt-4 items-center justify-center">
+                <Mail width="22" />{" "}
+                <a className="ml-2" href={`mailto:${email}`}>
+                  {email}
+                </a>
+              </li>
+              {usertype === "developer" ? (
+                <li className="flex mt-4 items-center justify-center">
+                  <Github width="22" />{" "}
+                  <a
+                    className="ml-2"
+                    href={`https://github.com/${githubusername}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {githubusername}
+                  </a>
+                </li>
+              ) : currentUser.usertype === "designer" ? (
+                <li className="flex mt-4 items-center justify-center">
+                  <Dribbble width="22" />{" "}
+                  <a
+                    className="ml-2"
+                    href={`https://dribbble.com/${dribbbleusername}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {dribbbleusername}
+                  </a>
+                </li>
+              ) : (
+                <>
+                  <li className="flex mt-4 items-cente justify-center">
+                    <Github width="22" />{" "}
+                    <a
+                      className="ml-2"
+                      href={`https://github.com/${githubusername}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {githubusername}
+                    </a>
+                  </li>
+                  <li className="flex mt-4 items-center justify-center">
+                    <Dribbble width="22" />{" "}
+                    <a
+                      className="ml-2"
+                      href={`https://dribbble.com/${dribbbleusername}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {dribbbleusername}
+                    </a>
+                  </li>
+                </>
+              )}
 
-	const onSubmitHandler = async (e) => {
-		e.preventDefault();
-		console.log(editPostData);
-
-		// Uploading image to cloud
-		try {
-			data = new FormData();
-			data.append("file", files[0]);
-			data.append("upload_preset", "profile-images");
-			const res = await axios.post(
-				"https://api.cloudinary.com/v1_1/dws5zrl1l/image/upload",
-				data
-			);
-			console.log(res.data.secure_url);
-			setEditPostData({
-				...editPostData,
-				profileimage: res.secure_url,
-			});
-			const resPost = await axiosInstance.put(`/api/user/${userId}`, {
-				name: editPostData.username,
-				userId: userId,
-				githubusername: editPostData.githubUsername,
-				dribbbleusername: editPostData.dribbbleusername,
-				address: editPostData.city,
-				profileurl: editPostData.portfolioURL,
-				profileimage: res.data.secure_url,
-				description: editPostData.description,
-			});
-			if (resPost.status === 200) {
-				toast.success("Your profile is updated successfully 💯", {
-					position: "top-center",
-					autoClose: 5000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-				});
-				history.push("/dashboard");
-			}
-		} catch (err) {
-			console.log(err);
-		}
-		setVisibleEditProfile(!visibleEditProfile);
-	};
-
-	const commonAvatar =
-		"https://cdn.dribbble.com/users/281679/screenshots/14892777/media/dda7cef00b08512ac10faec0cd7c630d.png?compress=1&resize=1600x1200";
-
-	return (
-		<>
-			<div className="lg:w-96 h-110 max-h-110 rounded-3xl lg:sticky lg:top-28  shadow-tabShadows sm:mx-auto sm:w-full">
-				<div className="w-full h-24 py-2 px-4 " style={mystyle}>
-					<div className="rounded-full h-20  w-20 mx-auto absolute inset-x-1/4 top-36 lg:top-12 lg:inset-x-1/4  p-1 bg-white shadow-tabShadow">
-						<img
-							src={portfolioURL || commonAvatar}
-							alt="banner"
-							className="rounded-full w-full h-full object-cover object-center  mx-auto z-0"
-						/>
-					</div>
-					<div className="info w-full text-center mt-32 ">
-						<p className="text-base font-semibold">{currentUser.name}</p>
-						<p className="text-sm font-medium text-gray-400 capitalize">
-							{usertype === "both"
-								? "Designer, Developer"
-								: currentUser.usertype}
-						</p>
-						<div className=" items-center">
-							{address != null || "" || undefined ? (
-								<div className="inline-flex items-center mx-auto mt-2">
-									<Location />{" "}
-									<p className="text-xs font-semibold ml-1">{address}</p>
-								</div>
-							) : null}
-						</div>
-					</div>
-					<div className="mt-3">
-						<p
-							className="text-sm overflow-clip overflow-hidden text-justify  "
-							style={{ "max-height": "100px" }}
-						>
-							{description}
-						</p>
-						<ul className="list-none text-xs mt-4 font-semibold text-gray-500">
-							<li className="flex mt-4 items-center justify-center">
-								<Mail width="22" />{" "}
-								<a className="ml-2" href={`mailto:${email}`}>
-									{email}
-								</a>
-							</li>
-							{usertype === "developer" ? (
-								<li className="flex mt-4 items-cente justify-center">
-									<Github width="22" />{" "}
-									<a
-										className="ml-2"
-										href={`https://github.com/${githubUsername}`}
-										target="_blank"
-										rel="noreferrer"
-									>
-										{githubUsername}
-									</a>
-								</li>
-							) : currentUser.usertype === "designer" ? (
-								<li className="flex mt-4 items-center justify-center">
-									<Dribbble width="22" />{" "}
-									<a
-										className="ml-2"
-										href={`https://dribbble.com/${dribbbleusername}`}
-										target="_blank"
-										rel="noreferrer"
-									>
-										{dribbbleusername}
-									</a>
-								</li>
-							) : (
-								<>
-									<li className="flex mt-4 items-cente justify-center">
-										<Github width="22" />{" "}
-										<a
-											className="ml-2"
-											href={`https://github.com/${githubUsername}`}
-											target="_blank"
-											rel="noreferrer"
-										>
-											{githubUsername}
-										</a>
-									</li>
-									<li className="flex mt-4 items-center justify-center">
-										<Dribbble width="22" />{" "}
-										<a
-											className="ml-2"
-											href={`https://dribbble.com/${dribbbleusername}`}
-											target="_blank"
-											rel="noreferrer"
-										>
-											{dribbbleusername}
-										</a>
-									</li>
-								</>
-							)}
-
-							{portfolioURL != null || "" || undefined ? (
-								<li className="flex mt-4 items-center justify-center">
-									<Link width="22" />{" "}
-									<a
-										className="ml-2"
-										href={`http://${portfolioURL}`}
-										target="_blank"
-										rel="noreferrer"
-									>
-										{portfolioURL}
-									</a>
-								</li>
-							) : null}
-						</ul>
-						{self ? (
-							<Button
-								className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
-								size="small"
-								onClick={() => setVisibleEditProfile(!visibleEditProfile)}
-							>
-								Edit profile ✏️
-							</Button>
-						) : !following.includes(userId) && !followers.includes(userId) ? (
-							<Button
-								size="small"
-								type="primary"
-								children="Follow"
-								className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
-							/>
-						) : followers.includes(userId) && !following.includes(userId) ? (
-							<Button
-								size="small"
-								type="primary"
-								children="Follow Back"
-								className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
-							/>
-						) : (
-							<Button
-								size="small"
-								type="primary"
-								children="Unfollow"
-								className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
-							/>
-						)}
-					</div>
-				</div>
-			</div>
-
-			<ModalWrapper
-				visible={visibleEditProfile}
-				setVisible={setVisibleEditProfile}
-			>
-				<div className="mt-2">
-					<div className="text-center">
-						<h1 className="font-bold text-2xl text-blue-600 ">
-							Update Profile
-						</h1>
-					</div>
-
-					<form onSubmit={onSubmitHandler}>
-						<Input
-							label="Name"
-							inputType="input"
-							type="text"
-							placeholder="Enter your name"
-							name="username"
-							value={editPostData.username}
-							state={editPostData}
-							setState={setEditPostData}
-							labelClass="mt-4"
-						/>
-
-						<Input
-							label="City"
-							inputType="input"
-							type="text"
-							placeholder="Enter your city"
-							name="city"
-							value={editPostData.city}
-							state={editPostData}
-							setState={setEditPostData}
-							labelClass="mt-4"
-							list="cities"
-							id="city"
-							citiesArray={citiesArray}
-							setCitiesArray={setCitiesArray}
-						/>
-						<datalist id="cities">
-							{citiesArray.map((city) => (
-								<option value={city.name + ", " + city.country.name} />
-							))}
-						</datalist>
-
-						<Input
-							label="Email"
-							inputType="input"
-							type="email"
-							placeholder="Enter your email"
-							name="email"
-							value={editPostData.email}
-							state={editPostData}
-							setState={setEditPostData}
-							labelClass="mt-4"
-						/>
-						{currentUser.usertype === "designer" ? (
-							<Input
-								label="Dribbble Username"
-								inputType="input"
-								type="text"
-								placeholder="Enter your username"
-								name="dribbbleusername"
-								value={editPostData.dribbbleusername}
-								state={editPostData}
-								setState={setEditPostData}
-								labelClass="mt-4"
-							/>
-						) : currentUser.usertype === "developer" ? (
-							<Input
-								label="Github Username"
-								inputType="input"
-								type="text"
-								placeholder="Enter your Username"
-								name="githubUsername"
-								value={editPostData.githubUsername}
-								state={editPostData}
-								setState={setEditPostData}
-								labelClass="mt-4"
-							/>
-						) : (
-							<>
-								<Input
-									label="Github Username"
-									inputType="input"
-									type="text"
-									placeholder="Enter your Username"
-									name="githubUsername"
-									value={editPostData.githubUsername}
-									state={editPostData}
-									setState={setEditPostData}
-									labelClass="mt-4"
-								/>
-								<Input
-									label="Dribbble Username"
-									inputType="input"
-									type="text"
-									placeholder="Enter your username"
-									name="dribbbleusername"
-									value={editPostData.dribbbleusername}
-									state={editPostData}
-									setState={setEditPostData}
-									labelClass="mt-4"
-								/>
-							</>
-						)}
-						<Input
-							label="Portfolio URL"
-							inputType="input"
-							type="text"
-							placeholder="Enter URL"
-							name="portfolioURL"
-							value={editPostData.portfolioURL}
-							state={editPostData}
-							setState={setEditPostData}
-							labelClass="mt-4"
-						/>
-						<Input
-							label="Description"
-							inputType="textarea"
-							placeholder="Description about you"
-							name="description"
-							value={editPostData.description}
-							state={editPostData}
-							setState={setEditPostData}
-							labelClass="mt-4"
-							rows={3}
-						/>
-						<div className="flex flex-col items-start my-4">
-							<label
-								htmlFor="input"
-								className="text-base mb-2 font-medium font-sample"
-							>
-								Profile Image
-							</label>
-							<input
-								type="file"
-								placeholder="choose image"
-								name="profileimage"
-								onChange={uploadImage}
-							/>
-							<span className="text-sm text-gray-400 my-2">
-								<i>
-									Note: To change the uploaded file click on Choose file again
-								</i>
-							</span>
-						</div>
-						<Button type="primary" size="full" className="my-4">
-							Update Profile 😎
-						</Button>
-					</form>
-				</div>
-			</ModalWrapper>
-		</>
-	);
+              {portfolioURL != null || "" || undefined ? (
+                <li className="flex mt-4 items-center justify-center">
+                  <Link width="22" />{" "}
+                  <a
+                    className="ml-2"
+                    href={`http://${portfolioURL}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {portfolioURL}
+                  </a>
+                </li>
+              ) : null}
+            </ul>
+            {self ? (
+              <Button
+                className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
+                size="small"
+                onClick={() => setVisibleEditProfile(!visibleEditProfile)}
+              >
+                Edit profile ✏️
+              </Button>
+            ) : !following.includes(userId) && !followers.includes(userId) ? (
+              <Button
+                size="small"
+                type="primary"
+                children="Follow"
+                className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
+              />
+            ) : followers.includes(userId) && !following.includes(userId) ? (
+              <Button
+                size="small"
+                type="primary"
+                children="Follow Back"
+                className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
+              />
+            ) : (
+              <Button
+                size="small"
+                type="primary"
+                children="Unfollow"
+                className="mx-auto w-full bg-blue-600 mt-6 text-white border-none py-2"
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default OtherProfileOverview;

@@ -3,8 +3,29 @@ import Layout from "../../../components/Layout";
 import SideMenu from "../../../components/SideMenu";
 import Tabs from "../../../components/Tabs";
 import HappnersCard from "../../../components/HappnersCard";
+import axiosInstance from "../../../api/api";
 
 const Happners = () => {
+
+
+  // useEffect(() => {
+  //   const getAllUsers = async () => {
+  //     try {
+  //       const res = await axiosInstance.get(`/api/user/${params.id}`, {
+  //         headers: {
+  //           Accept: "application/json",
+  //           "Content-Type": "application/json",
+  //           "Access-Control-Allow-Origin": "*",
+  //           accessToken: localStorage.getItem("accessToken"),
+  //         },
+  //       });
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getAllUsers();
+  // })
+
   const data = [
     {
       id: 1,
