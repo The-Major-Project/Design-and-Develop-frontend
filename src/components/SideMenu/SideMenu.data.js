@@ -25,7 +25,7 @@ export const SideMenuItems = [
 		iconActive: <Profile />,
 		iconInactive: <ProfileIn />,
 		label: "Profile",
-		path: `/profile/user/${userId}`,
+		path: `/profile/${userId}`,
 	},
 	{
 		iconActive: <Notification />,

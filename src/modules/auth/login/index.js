@@ -27,7 +27,7 @@ const Login = () => {
 			console.log(res);
 			localStorage.setItem("accessToken", res.data.accessToken);
 			localStorage.setItem("userId", res.data.userId);
-			history.push("/dashboard");
+			// history.push("/dashboard");
 			window.location.reload();
 		} catch (err) {
 			const msg = err.response.data.message;

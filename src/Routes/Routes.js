@@ -8,6 +8,7 @@ import Profile from "../modules/dashboard/Profile";
 import Notifications from "../modules/dashboard/Notifications";
 import Happners from "../modules/dashboard/Happners";
 import Messages from "../modules/dashboard/Messages";
+import OtherProfile from "../modules/dashboard/OtherProfile";
 
 let token = localStorage.getItem("accessToken");
 
@@ -16,8 +17,12 @@ const Router = () => {
 		<Switch>
 			{token ? (
 				<>
+					<Route exact path="/">
+						<Redirect to="/dashboard" />
+					</Route>
 					<Route exact path="/dashboard" component={DashBoard} />
-					<Route exact path="/profile/user/:id" component={Profile} />
+					<Route exact path="/profile/:id" component={Profile} />
+					<Route exact path="/profile/user/:id" component={OtherProfile} />
 					<Route exact path="/notifications" component={Notifications} />
 					<Route exact path="/happners" component={Happners} />
 					<Route exact path="/messages" component={Messages} />

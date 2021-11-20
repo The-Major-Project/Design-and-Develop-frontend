@@ -1,26 +1,27 @@
-import React, { useContext, useState } from "react";
-import Banner from "../../assets/DashboardIcons/bannerimage.png";
+import React, { useContext, useEffect, useState } from "react";
+import Banner from "./../../../assets/DashboardIcons/bannerimage.png";
 // import Close from "../../assets/shared/closeImage.svg";
-import { ReactComponent as Location } from "../../assets/DashboardIcons/Location.svg";
-import { ReactComponent as Dribbble } from "../../assets/DashboardIcons/dribpink.svg";
-import { ReactComponent as Github } from "../../assets/DashboardIcons/gitcat.svg";
-import { ReactComponent as Link } from "../../assets/DashboardIcons/prolink.svg";
-import { ReactComponent as Mail } from "../../assets/DashboardIcons/mail.svg";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
-import ModalWrapper from "../ModalWrapper";
+import { ReactComponent as Location } from "./../../../assets/DashboardIcons/Location.svg";
+import { ReactComponent as Dribbble } from "./../../../assets/DashboardIcons/dribpink.svg";
+import { ReactComponent as Github } from "./../../../assets/DashboardIcons/gitcat.svg";
+import { ReactComponent as Link } from "./../../../assets/DashboardIcons/prolink.svg";
+import { ReactComponent as Mail } from "./../../../assets/DashboardIcons/mail.svg";
+import Button from "./../../../components/Button";
+import Input from "./../../../components/Input";
+import ModalWrapper from "./../../../components/ModalWrapper";
 import { toast } from "react-toastify";
 import axios from "axios";
-import axiosInstance from "../../api/api";
-import { stateContext } from "../../context/DNDContext";
-import { useHistory } from "react-router";
+import axiosInstance from "./../../../api/api";
+import { stateContext } from "../../../context/DNDContext";
+import { useHistory, useParams } from "react-router";
 
-const ProfileOverview = ({
+const OtherProfileOverview = ({
 	name,
 	usertype,
 	self,
 	city,
 	address,
+	description,
 	country,
 	email,
 	portfolioURL,
@@ -29,6 +30,35 @@ const ProfileOverview = ({
 	following = [2, 3, 4],
 	followers = [5, 6, 7, 1],
 }) => {
+	const params = useParams();
+	const [gitRepos, setGitRepos] = useState([]);
+	// eslint-disable-next-line no-unused-vars
+	const [urlUser, setUrlUser] = useState();
+	const [userPost, setUserPost] = useState([]);
+	// const [self, setSelf] = useState();
+	// const [otherUser, setOtherUser] = useState({});
+	useEffect(() => {
+		const getOtherUSer = async () => {
+			try {
+				const res = await axiosInstance.get(`/api/user/${params.id}`, {
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+						"Access-Control-Allow-Origin": "*",
+						accessToken: localStorage.getItem("accessToken"),
+					},
+				});
+				setUrlUser(res.data.data);
+				console.log(urlUser);
+				// setGitRepos(gitPost.data);
+				// console.log(gitRepos);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		getOtherUSer();
+	}, []);
+
 	const mystyle = {
 		// eslint-disable-next-line no-useless-concat
 		backgroundImage: "url(" + `${Banner}` + ")",
@@ -117,7 +147,7 @@ const ProfileOverview = ({
 				<div className="w-full h-24 py-2 px-4 " style={mystyle}>
 					<div className="rounded-full h-20  w-20 mx-auto absolute inset-x-1/4 top-36 lg:top-12 lg:inset-x-1/4  p-1 bg-white shadow-tabShadow">
 						<img
-							src={currentUser.profileimage || commonAvatar}
+							src={portfolioURL || commonAvatar}
 							alt="banner"
 							className="rounded-full w-full h-full object-cover object-center  mx-auto z-0"
 						/>
@@ -125,17 +155,15 @@ const ProfileOverview = ({
 					<div className="info w-full text-center mt-32 ">
 						<p className="text-base font-semibold">{currentUser.name}</p>
 						<p className="text-sm font-medium text-gray-400 capitalize">
-							{currentUser.usertype === "both"
+							{usertype === "both"
 								? "Designer, Developer"
 								: currentUser.usertype}
 						</p>
 						<div className=" items-center">
-							{currentUser.address != null || "" || undefined ? (
+							{address != null || "" || undefined ? (
 								<div className="inline-flex items-center mx-auto mt-2">
 									<Location />{" "}
-									<p className="text-xs font-semibold ml-1">
-										{currentUser.address}
-									</p>
+									<p className="text-xs font-semibold ml-1">{address}</p>
 								</div>
 							) : null}
 						</div>
@@ -145,25 +173,25 @@ const ProfileOverview = ({
 							className="text-sm overflow-clip overflow-hidden text-justify  "
 							style={{ "max-height": "100px" }}
 						>
-							{currentUser.description}
+							{description}
 						</p>
 						<ul className="list-none text-xs mt-4 font-semibold text-gray-500">
 							<li className="flex mt-4 items-center justify-center">
 								<Mail width="22" />{" "}
-								<a className="ml-2" href={`mailto:${currentUser.email}`}>
-									{currentUser.email}
+								<a className="ml-2" href={`mailto:${email}`}>
+									{email}
 								</a>
 							</li>
-							{currentUser.usertype === "developer" ? (
+							{usertype === "developer" ? (
 								<li className="flex mt-4 items-cente justify-center">
 									<Github width="22" />{" "}
 									<a
 										className="ml-2"
-										href={`https://github.com/${currentUser.githubusername}`}
+										href={`https://github.com/${githubUsername}`}
 										target="_blank"
 										rel="noreferrer"
 									>
-										{currentUser.githubusername}
+										{githubUsername}
 									</a>
 								</li>
 							) : currentUser.usertype === "designer" ? (
@@ -171,11 +199,11 @@ const ProfileOverview = ({
 									<Dribbble width="22" />{" "}
 									<a
 										className="ml-2"
-										href={`https://dribbble.com/${currentUser.dribbbleusername}`}
+										href={`https://dribbble.com/${dribbbleusername}`}
 										target="_blank"
 										rel="noreferrer"
 									>
-										{currentUser.dribbbleusername}
+										{dribbbleusername}
 									</a>
 								</li>
 							) : (
@@ -184,37 +212,37 @@ const ProfileOverview = ({
 										<Github width="22" />{" "}
 										<a
 											className="ml-2"
-											href={`https://github.com/${currentUser.githubusername}`}
+											href={`https://github.com/${githubUsername}`}
 											target="_blank"
 											rel="noreferrer"
 										>
-											{currentUser.githubusername}
+											{githubUsername}
 										</a>
 									</li>
 									<li className="flex mt-4 items-center justify-center">
 										<Dribbble width="22" />{" "}
 										<a
 											className="ml-2"
-											href={`https://dribbble.com/${currentUser.dribbbleusername}`}
+											href={`https://dribbble.com/${dribbbleusername}`}
 											target="_blank"
 											rel="noreferrer"
 										>
-											{currentUser.dribbbleusername}
+											{dribbbleusername}
 										</a>
 									</li>
 								</>
 							)}
 
-							{currentUser.profileurl != null || "" || undefined ? (
+							{portfolioURL != null || "" || undefined ? (
 								<li className="flex mt-4 items-center justify-center">
 									<Link width="22" />{" "}
 									<a
 										className="ml-2"
-										href={`http://${currentUser.profileurl}`}
+										href={`http://${portfolioURL}`}
 										target="_blank"
 										rel="noreferrer"
 									>
-										{currentUser.profileurl}
+										{portfolioURL}
 									</a>
 								</li>
 							) : null}
@@ -400,35 +428,6 @@ const ProfileOverview = ({
 								</i>
 							</span>
 						</div>
-						{/* <Input
-							label="Profile image"
-							inputType="input"
-							type="file"
-							placeholder="choose image"
-							name="profileimage"
-							value={editPostData.profileimage}
-							state={editPostData}
-							setState={setEditPostData}
-							labelClass="mt-4"
-							setPreviewSource={setPreviewSource}
-							previewSource={previewSource}
-						/> */}
-						{/* {previewSource ? (
-							<>
-								<img
-									src={previewSource}
-									alt="profileImage"
-									className="w-40 mt-2 rounded-xl shadow-xl object-cover"
-								/>
-								<button
-									onClick={() => setPreviewSource("")}
-									className="flex items-center my-2"
-								>
-									<img src={Close} alt="profileImage" className="mr-2" /> Remove
-								</button>
-							</>
-						) : null} */}
-
 						<Button type="primary" size="full" className="my-4">
 							Update Profile 😎
 						</Button>
@@ -439,4 +438,4 @@ const ProfileOverview = ({
 	);
 };
 
-export default ProfileOverview;
+export default OtherProfileOverview;
