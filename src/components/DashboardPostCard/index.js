@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "../../api/api";
 // import icon from "../../assets/DashboardIcons/icon.png";
 import Button from "../Button";
 
@@ -14,28 +15,55 @@ const DashboardPostCard = ({
 	date,
 	id,
 	userId,
+	requestors = [],
+	acceptors = [],
 }) => {
 	const icon =
 		"https://cdn.dribbble.com/users/281679/screenshots/14892777/media/dda7cef00b08512ac10faec0cd7c630d.png?compress=1&resize=1600x1200";
-	const [btnText, setBtnText] = useState("Let's collab 🤝");
 	const [isReadMore, setIsReadMore] = useState(true);
-	const [disabled, setDisabled] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [disabled, setDisabled] = useState(
+		requestors.includes(localStorage.getItem("userId"))
+	);
+	const [btnText, setBtnText] = useState("Let's collab 🤝");
 	const toggleReadMore = () => {
 		setIsReadMore(!isReadMore);
 	};
-	const sendCollabReq = () => {
-		console.log("req send");
-		setDisabled(true);
-		setBtnText("Collab req sent 🛩️");
-		toast.success("Your collaboration request was sent successfully 💯", {
-			position: "top-center",
-			autoClose: 5000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
+	const sendCollabReq = async () => {
+		setLoading(true);
+		try {
+			const res = await axios.put(
+				`/api/posts/${localStorage.getItem("userId")}/collabrequest`,
+				{
+					postId: id,
+				}
+			);
+			console.log(res);
+			setLoading(false);
+			setBtnText("Collab req sent 🛩️");
+			setDisabled(true);
+			toast.success("Your collaboration request was sent successfully 💯", {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		} catch (err) {
+			console.log(err);
+			setLoading(false);
+			toast.error(err, {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
 	};
 
 	return (
@@ -84,6 +112,7 @@ const DashboardPostCard = ({
 					children={btnText}
 					onClick={sendCollabReq}
 					disabled={disabled}
+					isLoading={loading}
 				/>
 			</div>
 		</>

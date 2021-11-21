@@ -94,6 +94,8 @@ const DashBoard = () => {
 									id={card._id}
 									userId={card.userId}
 									avatar={card.img}
+									requestors={card.requestors}
+									acceptors={card.acceptors}
 								/>
 							))
 						)}
