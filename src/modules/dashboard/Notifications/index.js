@@ -1,13 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../../components/Layout";
 import SideMenu from "../../../components/SideMenu";
 import NotificationBar from "../../../components/NotificationBar";
-import { stateContext } from "../../../context/DNDContext";
 import axios from "../../../api/api";
 
 const Notifications = () => {
-	// notifications
-	// const { currentUser } = useContext(stateContext);
 	const [currentUser, setCurrentUser] = useState({});
 	const [loading, setLoading] = useState(true);
 
@@ -32,6 +29,7 @@ const Notifications = () => {
 			} catch (err) {}
 		};
 		getUser();
+		// setInterval(() => getUser(), 2000);
 	}, []);
 
 	return (
@@ -45,19 +43,29 @@ const Notifications = () => {
 								Notifications
 							</h1>
 
-							{loading
-								? "Loading..."
-								: currentUser.notifications.map((notification) => {
-										return (
-											<NotificationBar
-												key={notification._id}
-												reqType={notification.notifType}
-												senderUserId={notification.userId}
-												postId={notification.postId}
-												notifId={notification._id}
-											/>
-										);
-								  })}
+							{loading ? (
+								"Loading..."
+							) : currentUser.notifications.length === 0 ? (
+								<div className="flex items-center justify-center mt-8">
+									<h1 className="text-base font-semibold text-gray-400 text-center">
+										No Notifications to show
+									</h1>
+									<span>😢</span>
+								</div>
+							) : (
+								currentUser.notifications.map((notification) => {
+									return (
+										<NotificationBar
+											key={notification._id}
+											reqType={notification.notifType}
+											senderUserId={notification.userId}
+											postId={notification.postId}
+											notifId={notification._id}
+											setCurrentUser={setCurrentUser}
+										/>
+									);
+								})
+							)}
 						</div>
 					</>
 				}

@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
-import icon from "../../assets/NotificationIcons/icon.jpg";
 import Button from "../Button";
+import ModalWrapper from "../ModalWrapper";
 import axios from "../../api/api";
-import { toast } from "react-toastify";
-const NotificationBar = ({ reqType, senderUserId, postId, notifId }) => {
+
+const NotificationBar = ({
+	reqType,
+	senderUserId,
+	postId,
+	notifId,
+	setCurrentUser,
+}) => {
 	// eslint-disable-next-line no-unused-vars
-	const [post, setPost] = useState(null);
+	const [post, setPost] = useState({});
 	const [sender, setSender] = useState({});
 	const [loading, setLoading] = useState(false);
+	const [visibleWrapper, setVisibleWrapper] = useState(false);
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -26,6 +33,10 @@ const NotificationBar = ({ reqType, senderUserId, postId, notifId }) => {
 			} catch (err) {}
 		};
 		getUser();
+		return () => {
+			setSender({}); // This worked for me
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleAccept = async () => {
@@ -39,6 +50,24 @@ const NotificationBar = ({ reqType, senderUserId, postId, notifId }) => {
 				}
 			);
 			console.log(res);
+			const deleteres = await axios.put(
+				`/api/user/${notifId}/deleteNotification`,
+				{ acceptorUserId: localStorage.getItem("userId") }
+			);
+			console.log(deleteres);
+
+			const result = await axios.get(
+				`/api/user/${localStorage.getItem("userId")}`,
+				{
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+						"Access-Control-Allow-Origin": "*",
+						accessToken: localStorage.getItem("accessToken"),
+					},
+				}
+			);
+			setCurrentUser(result.data.data);
 			setLoading(false);
 		} catch (err) {
 			console.log(err);
@@ -58,6 +87,7 @@ const NotificationBar = ({ reqType, senderUserId, postId, notifId }) => {
 				withCredentials: true,
 			});
 			setPost(res.data);
+			setVisibleWrapper(true);
 			console.log("Res", res.data);
 			if (!res.status === 200) {
 				const error = new Error(res.error);
@@ -73,7 +103,10 @@ const NotificationBar = ({ reqType, senderUserId, postId, notifId }) => {
 		<div className="flex flex-col px-6 py-8 md:py-4 my-6 mx-auto items-center border-2 border-blue-100 rounded-3xl w-full md:flex-row max-w-5xl">
 			<img
 				className="w-16 h-16 object-cover object-center md:h-12 md:w-12 rounded-full"
-				src={sender.profileimage || icon}
+				src={
+					sender.profileimage ||
+					"https://cdn.dribbble.com/users/281679/screenshots/14892777/media/dda7cef00b08512ac10faec0cd7c630d.png?compress=1&resize=1600x1200"
+				}
 				alt={sender.name}
 			/>
 			<h1 className="text-blue-600 font-bold text-base md:ml-6 md:mr-2">
@@ -113,7 +146,7 @@ const NotificationBar = ({ reqType, senderUserId, postId, notifId }) => {
 							size="small"
 							type="secondary"
 							children="View Post"
-							// onClick={viewPost}
+							onClick={viewPost}
 						/>
 						<Button
 							className="md:ml-auto"
@@ -125,6 +158,11 @@ const NotificationBar = ({ reqType, senderUserId, postId, notifId }) => {
 					</div>
 				</>
 			) : null}
+
+			{/* View post modal */}
+			<ModalWrapper visible={visibleWrapper} setVisible={setVisibleWrapper}>
+				<div className="mt-2"></div>
+			</ModalWrapper>
 		</div>
 	);
 };
