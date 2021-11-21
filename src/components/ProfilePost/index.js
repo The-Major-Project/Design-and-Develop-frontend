@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { ReactComponent as Trash } from "../../assets/DashboardIcons/trash.svg";
 import { ReactComponent as Edit } from "../../assets/DashboardIcons/edit.svg";
@@ -8,23 +8,24 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import ModalWrapper from "../ModalWrapper";
 import { toast } from "react-toastify";
+import axios from "../../api/api";
+import { stateContext } from "../../context/DNDContext";
 
 const ProfilePost = ({
-  title = "Design & Develop",
-  description = `is simply dummy text of the printing and typesetting industry. Lorem
-  Ipsum has been the industry's standard dummy text ever since the
-  1500s, when an unknown printer took a galley of type and scrambled
-  it to make a type specimen book. It has survived not only five
-  centuries, but also the leap into electronic typesetting, remaining
-  essentially unchanged.`,
+  title,
+  description,
   self,
+  postId,
   requireddeveloper = 2,
   requiredDesigner = 5,
   date = "15 Jun 2021",
+  setUserPost,
 }) => {
+  const [loading,setLoading] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false);
   const [visibleDelete, setVisibleDelete] = useState(false);
   const [visibleRequest, setVisibleRequest] = useState(false);
+  const { currentUser } = useContext(stateContext);
 
   const [editPostData, setEditPostData] = useState({
     title,
@@ -33,19 +34,100 @@ const ProfilePost = ({
     designers: requiredDesigner,
   });
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     console.log(editPostData);
-    toast.success("Your post is successfully updated💯", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    try {
+      const res = await axios.put(`/api/posts/${postId}`, {
+        title: editPostData.title,
+        description: editPostData.description,
+        developer: editPostData.developer,
+        designer: editPostData.designer,
+        userId: localStorage.getItem("userId"),
+      });
+      console.log(res);
+      const resPost = await axios.get(
+        `/api/posts/${localStorage.getItem("userId")}/all`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            accessToken: localStorage.getItem("accessToken"),
+            userId: localStorage.getItem("userId"),
+          },
+        }
+      );
+      setUserPost(resPost.data.data);
+      console.log(currentUser.name, currentUser._id, currentUser.profileimage);
+      toast.success("Your collab job is successfully posted 💯", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } catch (err) {
+      const msg = err.response.data.message;
+      console.log(msg);
+      toast.error(msg, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
     setVisibleEdit(!visibleEdit);
+  };
+
+  const handleDelete = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.delete(`/api/posts/${postId}`, {
+        userId: localStorage.getItem("userId"),
+      });
+      console.log(res);
+      const resPost = await axios.get(
+        `/api/posts/${localStorage.getItem("userId")}/all`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            accessToken: localStorage.getItem("accessToken"),
+            userId: localStorage.getItem("userId"),
+          },
+        }
+      );
+      setUserPost(resPost.data.data);
+      toast.success("Your post is deleted 🗑️", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setVisibleDelete(!visibleDelete);
+    } catch (err) {
+      const msg = err.response.data.message;
+      console.log(msg);
+      toast.error(msg, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
 
   const requestData = [
@@ -223,7 +305,8 @@ const ProfilePost = ({
             <Button
               className="py-2 bg-red-500 w-32 text-white ml-6"
               size="small"
-              // isLoading={true}
+              isLoading={loading}
+              onClick={handleDelete}
             >
               <Trash />
               <span className="ml-2">Delete</span>
@@ -251,7 +334,7 @@ const ProfilePost = ({
               labelClass="mt-4"
             />
             <Input
-              label="Title"
+              label="Description"
               inputType="textarea"
               placeholder="Description of your project"
               name="description"

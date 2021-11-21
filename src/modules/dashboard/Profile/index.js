@@ -86,7 +86,10 @@ const Profile = () => {
 								requiredDesigner={post.designer}
 								developer={post.developer}
 								key={post._id}
+								postId={post._id}
+								postuserId={post.userId}
 								self={self}
+								setUserPost={setUserPost}
 								date={post.updatedAt.substring(0, 10)}
 							/>
 						);
