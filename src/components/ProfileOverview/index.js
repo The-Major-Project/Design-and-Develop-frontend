@@ -44,6 +44,7 @@ const ProfileOverview = ({
 	let files;
 	let history = useHistory();
 	const userId = localStorage.getItem("userId");
+	const [loading, setLoading] = useState(false);
 	const [visibleEditProfile, setVisibleEditProfile] = useState(false);
 	const [citiesArray, setCitiesArray] = useState([]);
 	const [editPostData, setEditPostData] = useState({
@@ -63,6 +64,7 @@ const ProfileOverview = ({
 	};
 
 	const onSubmitHandler = async (e) => {
+		setLoading(true);
 		e.preventDefault();
 		console.log(editPostData);
 
@@ -91,6 +93,7 @@ const ProfileOverview = ({
 				description: editPostData.description,
 			});
 			if (resPost.status === 200) {
+				setLoading(false);
 				toast.success("Your profile is updated successfully 💯", {
 					position: "top-center",
 					autoClose: 5000,
@@ -429,7 +432,12 @@ const ProfileOverview = ({
 							</>
 						) : null} */}
 
-						<Button type="primary" size="full" className="my-4">
+						<Button
+							type="primary"
+							size="full"
+							className="my-4"
+							isLoading={loading}
+						>
 							Update Profile 😎
 						</Button>
 					</form>

@@ -8,10 +8,8 @@ import AuthSvg from "../../../assets/shared/authsvg.svg";
 import { ReactComponent as UnderLine } from "../../../assets/shared/underline2.svg";
 import axios from "../../../api/api";
 import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
 
 const Login = () => {
-	const history = useHistory();
 	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState({
 		email: "",

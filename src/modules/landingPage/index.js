@@ -31,23 +31,48 @@ const Landing = () => {
 	};
 	const form = useRef();
 	const sendEmail = (e) => {
-		setLoading(true);
-		e.preventDefault();
+		if (!query.name || !query.email || !query.message) {
+			e.preventDefault();
+			toast.error("Please fill the data properly 😟", {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		} else {
+			setLoading(true);
+			e.preventDefault();
 
-		emailjs
-			.sendForm(
-				"service_2gvm163",
-				"template_fqdzahp",
-				form.current,
-				"user_ATUT81Ji9zh87IWKoU2rE"
-			)
-			.then(
-				(result) => {
-					setQuery({ name: "", email: "", message: "" });
-					setLoading(false);
-					toast.success(
-						"Thankyou for reaching us😊. Our team will get back to you soon!🤝",
-						{
+			emailjs
+				.sendForm(
+					"service_2gvm163",
+					"template_fqdzahp",
+					form.current,
+					"user_ATUT81Ji9zh87IWKoU2rE"
+				)
+				.then(
+					(result) => {
+						setQuery({ name: "", email: "", message: "" });
+						setLoading(false);
+						toast.success(
+							"Thankyou for reaching us😊. Our team will get back to you soon!🤝",
+							{
+								position: "top-center",
+								autoClose: 5000,
+								hideProgressBar: false,
+								closeOnClick: true,
+								pauseOnHover: true,
+								draggable: true,
+								progress: undefined,
+							}
+						);
+					},
+					(error) => {
+						setQuery({ name: "", email: "", message: "" });
+						toast.error("Oops😅! Error has occured. Please try again later", {
 							position: "top-center",
 							autoClose: 5000,
 							hideProgressBar: false,
@@ -55,22 +80,10 @@ const Landing = () => {
 							pauseOnHover: true,
 							draggable: true,
 							progress: undefined,
-						}
-					);
-				},
-				(error) => {
-					setQuery({ name: "", email: "", message: "" });
-					toast.error("Oops😅! Error has occured. Please try again later", {
-						position: "top-center",
-						autoClose: 5000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-					});
-				}
-			);
+						});
+					}
+				);
+		}
 	};
 	return (
 		<>

@@ -78,22 +78,28 @@ const Profile = () => {
 			tabname: "Posts",
 			tabdata: (
 				<>
-					{userPost.map((post) => {
-						return (
-							<ProfilePost
-								title={post.title}
-								description={post.description}
-								designer={post.designer}
-								developer={post.developer}
-								key={post._id}
-								postId={post._id}
-								postuserId={post.userId}
-								self={self}
-								setUserPost={setUserPost}
-								date={post.updatedAt.substring(0, 10)}
-							/>
-						);
-					})}
+					{userPost?.length === 0 ? (
+						<div>
+							<span className="font-semibold text-lg">No posts to show</span> 😥
+						</div>
+					) : (
+						userPost.map((post) => {
+							return (
+								<ProfilePost
+									title={post.title}
+									description={post.description}
+									designer={post.designer}
+									developer={post.developer}
+									key={post._id}
+									postId={post._id}
+									postuserId={post.userId}
+									self={self}
+									setUserPost={setUserPost}
+									date={post.updatedAt.substring(0, 10)}
+								/>
+							);
+						})
+					)}
 				</>
 			),
 		},
