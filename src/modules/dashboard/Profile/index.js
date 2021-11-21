@@ -48,6 +48,7 @@ const Profile = () => {
 				const gitPost = await axios.get(
 					`https://api.github.com/users/${res.data.data.githubusername}/repos`
 				);
+				console.log(gitPost);
 
 				// const dribShots = await axios.get(
 				//   `https://api.dribbble.com/v2/user/shots?access_token=`
@@ -100,18 +101,22 @@ const Profile = () => {
 			inactive: <GithubBlack width="18" />,
 			tabdata: (
 				<>
-					{gitRepos.map((repo) => {
-						return (
-							<GithubProfileCard
-								title={repo.name}
-								description={repo.description}
-								fork={repo.forks_count}
-								star={repo.stargazers_count}
-								key={repo.id}
-								language={repo.language}
-							/>
-						);
-					})}
+					{gitRepos.length === 0
+						? "No GitHub Repos to show!😢"
+						: gitRepos.map((repo) => {
+								return (
+									<a href={repo.html_url} target="_blank" rel="noreferrer">
+										<GithubProfileCard
+											title={repo.name}
+											description={repo.description}
+											fork={repo.forks_count}
+											star={repo.stargazers_count}
+											key={repo.id}
+											language={repo.language}
+										/>
+									</a>
+								);
+						  })}
 				</>
 			),
 		},

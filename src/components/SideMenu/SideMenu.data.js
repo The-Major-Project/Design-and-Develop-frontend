@@ -1,6 +1,8 @@
 import { ReactComponent as Dashboard } from "../../assets/DashboardIcons/Dashboard.svg";
 import { ReactComponent as DashboardIn } from "../../assets/DashboardIcons/DashboardIn.svg";
+// eslint-disable-next-line no-unused-vars
 import { ReactComponent as Happners } from "../../assets/DashboardIcons/Happners.svg";
+// eslint-disable-next-line no-unused-vars
 import { ReactComponent as HappnersIn } from "../../assets/DashboardIcons/HappnersIn.svg";
 import { ReactComponent as Message } from "../../assets/DashboardIcons/Message.svg";
 import { ReactComponent as MessageIn } from "../../assets/DashboardIcons/MessageIn.svg";
@@ -33,12 +35,12 @@ export const SideMenuItems = [
 		label: "Notifications",
 		path: "/notifications",
 	},
-	{
-		iconActive: <Happners />,
-		iconInactive: <HappnersIn />,
-		label: "Happners",
-		path: "/happners",
-	},
+	// {
+	// 	iconActive: <Happners />,
+	// 	iconInactive: <HappnersIn />,
+	// 	label: "Happners",
+	// 	path: "/happners",
+	// },
 	{
 		iconActive: <Message />,
 		iconInactive: <MessageIn />,
