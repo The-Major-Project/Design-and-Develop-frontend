@@ -26,7 +26,9 @@ const Notifications = () => {
 				setCurrentUser(res.data.data);
 				setLoading(false);
 				console.log(res);
-			} catch (err) {}
+			} catch (err) {
+				console.log(err);
+			}
 		};
 		getUser();
 		// setInterval(() => getUser(), 2000);

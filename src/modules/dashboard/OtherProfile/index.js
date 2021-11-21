@@ -148,11 +148,15 @@ const OtherProfile = () => {
 							<ProfilePost
 								title={post.title}
 								description={post.description}
-								requiredDesigner={post.designer}
+								designer={post.designer}
 								developer={post.developer}
 								key={post._id}
 								self={false}
 								date={post.updatedAt.substring(0, 10)}
+								postId={post._id}
+								postuserId={post.userId}
+								setUserPost={setUserPost}
+								requestors={post.requestors}
 							/>
 						);
 					})}

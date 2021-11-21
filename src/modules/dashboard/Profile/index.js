@@ -83,7 +83,7 @@ const Profile = () => {
 							<ProfilePost
 								title={post.title}
 								description={post.description}
-								requiredDesigner={post.designer}
+								designer={post.designer}
 								developer={post.developer}
 								key={post._id}
 								postId={post._id}

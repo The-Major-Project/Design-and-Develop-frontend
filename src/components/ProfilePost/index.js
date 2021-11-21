@@ -10,401 +10,353 @@ import ModalWrapper from "../ModalWrapper";
 import { toast } from "react-toastify";
 import axios from "../../api/api";
 import { stateContext } from "../../context/DNDContext";
+import { useParams } from "react-router";
 
 const ProfilePost = ({
-  title,
-  description,
-  self,
-  postId,
-  requireddeveloper = 2,
-  requiredDesigner = 5,
-  date = "15 Jun 2021",
-  setUserPost,
+	title,
+	description,
+	self,
+	postId,
+	designer,
+	developer,
+	date = "15 Jun 2021",
+	setUserPost,
+	requestors = [],
 }) => {
-  const [loading,setLoading] = useState(false)
-  const [visibleEdit, setVisibleEdit] = useState(false);
-  const [visibleDelete, setVisibleDelete] = useState(false);
-  const [visibleRequest, setVisibleRequest] = useState(false);
-  const { currentUser } = useContext(stateContext);
+	const [loading, setLoading] = useState(false);
+	const [loadingUpdate, setLoadingUpdate] = useState(false);
+	const [loadingRequest, setLoadingRequest] = useState(false);
+	const [visibleEdit, setVisibleEdit] = useState(false);
+	const [visibleDelete, setVisibleDelete] = useState(false);
+	const { currentUser } = useContext(stateContext);
+	const [btnText, setBtnText] = useState("Let's collab 🤝");
+	const [disabled, setDisabled] = useState(
+		requestors.includes(localStorage.getItem("userId"))
+	);
 
-  const [editPostData, setEditPostData] = useState({
-    title,
-    description,
-    developers: requireddeveloper,
-    designers: requiredDesigner,
-  });
+	const params = useParams();
 
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    console.log(editPostData);
-    try {
-      const res = await axios.put(`/api/posts/${postId}`, {
-        title: editPostData.title,
-        description: editPostData.description,
-        developer: editPostData.developer,
-        designer: editPostData.designer,
-        userId: localStorage.getItem("userId"),
-      });
-      console.log(res);
-      const resPost = await axios.get(
-        `/api/posts/${localStorage.getItem("userId")}/all`,
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            accessToken: localStorage.getItem("accessToken"),
-            userId: localStorage.getItem("userId"),
-          },
-        }
-      );
-      setUserPost(resPost.data.data);
-      console.log(currentUser.name, currentUser._id, currentUser.profileimage);
-      toast.success("Your collab job is successfully posted 💯", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    } catch (err) {
-      const msg = err.response.data.message;
-      console.log(msg);
-      toast.error(msg, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-    setVisibleEdit(!visibleEdit);
-  };
+	const [editPostData, setEditPostData] = useState({
+		title,
+		description,
+		developers: developer,
+		designers: designer,
+	});
 
-  const handleDelete = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.delete(`/api/posts/${postId}`, {
-        userId: localStorage.getItem("userId"),
-      });
-      console.log(res);
-      const resPost = await axios.get(
-        `/api/posts/${localStorage.getItem("userId")}/all`,
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            accessToken: localStorage.getItem("accessToken"),
-            userId: localStorage.getItem("userId"),
-          },
-        }
-      );
-      setUserPost(resPost.data.data);
-      toast.success("Your post is deleted 🗑️", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      setVisibleDelete(!visibleDelete);
-    } catch (err) {
-      const msg = err.response.data.message;
-      console.log(msg);
-      toast.error(msg, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-  };
+	const handleLetsCollab = async () => {
+		setLoadingRequest(true);
+		try {
+			const res = await axios.put(
+				`/api/posts/${localStorage.getItem("userId")}/collabrequest`,
+				{
+					postId: postId,
+				}
+			);
+			console.log(res);
+			const resNotify = await axios.put(`/api/user/${params.id}/notification`, {
+				currentUserId: localStorage.getItem("userId"),
+				postId: postId,
+			});
+			console.log(resNotify);
+			setLoadingRequest(false);
+			setBtnText("Collab req sent 🛩️");
+			setDisabled(true);
+			toast.success("Your collaboration request was sent successfully 💯", {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		} catch (err) {
+			console.log(err);
+			setLoading(false);
+			toast.error(err, {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
+	};
 
-  const requestData = [
-    {
-      name: "Manvi Jain",
-      image: "http://exclaim.ca/images/halsey_2.jpg",
-      id: 1,
-    },
-    {
-      name: "Yash Sharma",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGgSYfz5J7rBvmLtYgaAgIBpbw6rvipHm3Dz2bI_mjl0VGQThsXNxoAdFJYognTZ5P2I&usqp=CAU",
-      id: 2,
-    },
-    {
-      name: "Mihir Verma",
-      image:
-        "https://www.nme.com/wp-content/uploads/2018/03/halsey-announces-world-tour-tickets-696x442.jpg",
-      id: 3,
-    },
-    {
-      name: "Meemansha Jain",
-      image:
-        "https://78.media.tumblr.com/0d781701dd670e1a107a433f16bcccbd/tumblr_pblvslOfKs1ufzypwo1_1280.jpg",
-      id: 4,
-    },
-    {
-      name: "Manvi Jain",
-      image: "http://exclaim.ca/images/halsey_2.jpg",
-      id: 1,
-    },
-    {
-      name: "Yash Sharma",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGgSYfz5J7rBvmLtYgaAgIBpbw6rvipHm3Dz2bI_mjl0VGQThsXNxoAdFJYognTZ5P2I&usqp=CAU",
-      id: 2,
-    },
-    {
-      name: "Mihir Verma",
-      image:
-        "https://www.nme.com/wp-content/uploads/2018/03/halsey-announces-world-tour-tickets-696x442.jpg",
-      id: 3,
-    },
-    {
-      name: "Meemansha Jain",
-      image:
-        "https://78.media.tumblr.com/0d781701dd670e1a107a433f16bcccbd/tumblr_pblvslOfKs1ufzypwo1_1280.jpg",
-      id: 4,
-    },
-    {
-      name: "Manvi Jain",
-      image: "http://exclaim.ca/images/halsey_2.jpg",
-      id: 1,
-    },
-    {
-      name: "Yash Sharma",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGgSYfz5J7rBvmLtYgaAgIBpbw6rvipHm3Dz2bI_mjl0VGQThsXNxoAdFJYognTZ5P2I&usqp=CAU",
-      id: 2,
-    },
-    {
-      name: "Mihir Verma",
-      image:
-        "https://www.nme.com/wp-content/uploads/2018/03/halsey-announces-world-tour-tickets-696x442.jpg",
-      id: 3,
-    },
-    {
-      name: "Meemansha Jain",
-      image:
-        "https://78.media.tumblr.com/0d781701dd670e1a107a433f16bcccbd/tumblr_pblvslOfKs1ufzypwo1_1280.jpg",
-      id: 4,
-    },
-  ];
+	const onSubmitHandler = async (e) => {
+		e.preventDefault();
+		setLoadingUpdate(true);
+		console.log(editPostData);
+		try {
+			const res = await axios.put(`/api/posts/${postId}`, {
+				title: editPostData.title,
+				description: editPostData.description,
+				developer: editPostData.developers,
+				designer: editPostData.designers,
+				userId: localStorage.getItem("userId"),
+			});
+			console.log(res);
+			const resPost = await axios.get(
+				`/api/posts/${localStorage.getItem("userId")}/all`,
+				{
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+						"Access-Control-Allow-Origin": "*",
+						accessToken: localStorage.getItem("accessToken"),
+						userId: localStorage.getItem("userId"),
+					},
+				}
+			);
+			setUserPost(resPost.data.data);
+			setLoadingUpdate(false);
+			console.log(currentUser.name, currentUser._id, currentUser.profileimage);
+			toast.success("Your collab job is successfully updated 💯", {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		} catch (err) {
+			const msg = err.response.data.message;
+			console.log(msg);
+			toast.error(msg, {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
+		setVisibleEdit(!visibleEdit);
+	};
 
-  return (
-    <>
-      <motion.div
-        className="w-68 rounded-2xl px-4 py-5 border-2"
-        whileHover={{ scale: 1.05 }}
-      >
-        <div className="flex items-center">
-          <Avatar />
-          <h3
-            className=" text-lg font-bold truncate ... ml-2 text-blue-600 "
-            style={{ "max-width": "20ch" }}
-          >
-            {title}
-          </h3>
-        </div>
-        <div className="mt-2">
-          <p
-            className=" text-sm overflow-clip overflow-hidden "
-            style={{ "max-width": "50ch", "max-height": "100px" }}
-          >
-            {description}
-          </p>
-        </div>
+	const handleDelete = async () => {
+		setLoading(true);
+		try {
+			const res = await axios.delete(`/api/posts/${postId}`, {
+				userId: localStorage.getItem("userId"),
+			});
+			console.log(res);
+			const resPost = await axios.get(
+				`/api/posts/${localStorage.getItem("userId")}/all`,
+				{
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+						"Access-Control-Allow-Origin": "*",
+						accessToken: localStorage.getItem("accessToken"),
+						userId: localStorage.getItem("userId"),
+					},
+				}
+			);
+			setUserPost(resPost.data.data);
+			toast.success("Your post is deleted 🗑️", {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+			setVisibleDelete(!visibleDelete);
+		} catch (err) {
+			const msg = err.response.data.message;
+			console.log(msg);
+			toast.error(msg, {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		}
+	};
 
-        <div className="text-blue-600 text-xs font-medium mt-2 w-full flex">
-          <div>
-            {requireddeveloper}
-            {requireddeveloper > 1 ? " Developers, " : " Developer, "}
-            {requiredDesigner}
-            {requiredDesigner > 1 ? " Designers" : " Designer"}
-          </div>
-          <div className=" ml-auto  text-gray-400">{date}</div>
-        </div>
+	return (
+		<>
+			<motion.div
+				className="w-68 rounded-2xl px-4 py-5 border-2"
+				whileHover={{ scale: 1.05 }}
+			>
+				<div className="flex items-center">
+					<Avatar />
+					<h3
+						className=" text-lg font-bold truncate ... ml-2 text-blue-600 "
+						style={{ "max-width": "20ch" }}
+					>
+						{title}
+					</h3>
+				</div>
+				<div className="mt-2">
+					<p
+						className=" text-sm overflow-clip overflow-hidden "
+						style={{ "max-width": "50ch", "max-height": "100px" }}
+					>
+						{description}
+					</p>
+				</div>
 
-        <div className="flex w-auto text-sm font-semibold items-center justify-between mt-4">
-          {self ? (
-            <>
-              <div className="flex items-center">
-                <Button
-                  size="small"
-                  children="View requests"
-                  type="primary"
-                  className="h-10 mr-2 "
-                  onClick={() => setVisibleRequest(!visibleRequest)}
-                />
-              </div>
-              <div className="flex text-blue-600 my-auto">
-                <div className=" items-center mr-2 flex">
-                  <Button
-                    size="icon"
-                    className="p-2"
-                    type="warning"
-                    onClick={() => setVisibleEdit(!visibleEdit)}
-                  >
-                    <Edit />
-                  </Button>
-                </div>
-                <div className=" items-center mr-2 flex ">
-                  <Button
-                    size="icon"
-                    className="p-2 bg-red-500"
-                    onClick={() => setVisibleDelete(!visibleDelete)}
-                  >
-                    <Trash />
-                  </Button>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="flex items-center w-full">
-                <Button
-                  size="full"
-                  children="Let's collab 🤝"
-                  type="primary"
-                  className="h-10"
-                />
-              </div>
-            </>
-          )}
-        </div>
-      </motion.div>
+				<div className="text-blue-600 text-xs font-medium mt-2 w-full flex">
+					<div>
+						{developer}
+						{developer > 1 ? " Developers, " : " Developer, "}
+						{designer}
+						{designer > 1 ? " Designers" : " Designer"}
+					</div>
+					<div className=" ml-auto  text-gray-400">{date}</div>
+				</div>
 
-      <ModalWrapper visible={visibleDelete} setVisible={setVisibleDelete}>
-        <div className=" text-center mt-6">
-          <h1 className="font-bold text-2xl text-blue-600">
-            Are you sure want to delete?
-          </h1>
-          <div className="w-full  mt-10">
-            <DeleteImage className="mx-auto w-auto" width="250" height="250" />
-          </div>
-          <div className=" inline-flex mx-auto mt-16">
-            <Button
-              className="py-2 w-32 mr-6"
-              type="primary"
-              size="small"
-              onClick={() => setVisibleDelete(!visibleDelete)}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="py-2 bg-red-500 w-32 text-white ml-6"
-              size="small"
-              isLoading={loading}
-              onClick={handleDelete}
-            >
-              <Trash />
-              <span className="ml-2">Delete</span>
-            </Button>
-          </div>
-        </div>
-      </ModalWrapper>
+				<div className="flex w-auto text-sm font-semibold items-center justify-between mt-4">
+					{self ? (
+						<>
+							<div className="flex text-blue-600 my-auto">
+								<div className=" items-center mr-2 flex">
+									<Button
+										size="icon"
+										className="p-4"
+										type="warning"
+										onClick={() => setVisibleEdit(!visibleEdit)}
+									>
+										<Edit className="mr-2" /> Edit
+									</Button>
+								</div>
+								<div className=" items-center mr-2 flex ">
+									<Button
+										size="icon"
+										className="p-4 bg-red-500 text-white"
+										onClick={() => setVisibleDelete(!visibleDelete)}
+									>
+										<Trash className="mr-2" /> Delete
+									</Button>
+								</div>
+							</div>
+						</>
+					) : (
+						<>
+							<div className="flex items-center w-full">
+								<Button
+									size="full"
+									children={btnText}
+									type="primary"
+									className="h-10"
+									onClick={handleLetsCollab}
+									isLoading={loadingRequest}
+									disabled={disabled}
+								/>
+							</div>
+						</>
+					)}
+				</div>
+			</motion.div>
 
-      <ModalWrapper visible={visibleEdit} setVisible={setVisibleEdit}>
-        <div className="mt-2">
-          <div className="text-center">
-            <h1 className="font-bold text-2xl text-blue-600 ">Update Post</h1>
-          </div>
+			{/* Delete Post */}
+			<ModalWrapper visible={visibleDelete} setVisible={setVisibleDelete}>
+				<div className=" text-center mt-6">
+					<h1 className="font-bold text-2xl text-blue-600">
+						Are you sure want to delete?
+					</h1>
+					<div className="w-full  mt-10">
+						<DeleteImage className="mx-auto w-auto" width="250" height="250" />
+					</div>
+					<div className=" inline-flex mx-auto mt-16">
+						<Button
+							className="py-2 w-32 mr-6"
+							type="primary"
+							size="small"
+							onClick={() => setVisibleDelete(!visibleDelete)}
+						>
+							Cancel
+						</Button>
+						<Button
+							className="py-2 bg-red-500 w-32 text-white ml-6"
+							size="small"
+							isLoading={loading}
+							onClick={handleDelete}
+						>
+							<Trash />
+							<span className="ml-2">Delete</span>
+						</Button>
+					</div>
+				</div>
+			</ModalWrapper>
 
-          <form onSubmit={onSubmitHandler}>
-            <Input
-              label="Title"
-              inputType="input"
-              type="text"
-              placeholder="Title of your project"
-              name="title"
-              value={editPostData.title}
-              state={editPostData}
-              setState={setEditPostData}
-              labelClass="mt-4"
-            />
-            <Input
-              label="Description"
-              inputType="textarea"
-              placeholder="Description of your project"
-              name="description"
-              value={editPostData.description}
-              state={editPostData}
-              setState={setEditPostData}
-              labelClass="mt-4"
-              rows={3}
-            />
-            <Input
-              label="Developers required"
-              inputType="input"
-              type="number"
-              placeholder="e.g. 2"
-              name="developers"
-              value={editPostData.developers}
-              state={editPostData}
-              setState={setEditPostData}
-              labelClass="mt-4"
-            />
-            <Input
-              label="Designers required"
-              inputType="input"
-              type="number"
-              placeholder="e.g. 2"
-              name="designers"
-              value={editPostData.designers}
-              state={editPostData}
-              setState={setEditPostData}
-              labelClass="mt-4"
-            />
-            <Button type="primary" size="full" className="my-4">
-              Update post 🧾
-            </Button>
-          </form>
-        </div>
-      </ModalWrapper>
+			{/* Edit Post */}
+			<ModalWrapper visible={visibleEdit} setVisible={setVisibleEdit}>
+				<div className="mt-2">
+					<div className="text-center">
+						<h1 className="font-bold text-2xl text-blue-600 ">Update Post</h1>
+					</div>
 
-      <ModalWrapper visible={visibleRequest} setVisible={setVisibleRequest}>
-        <div className="mt-2">
-          <div className="text-center">
-            <h1 className="font-bold text-2xl text-blue-600">Update Post</h1>
-          </div>
-          <div className="mt-4">
-            {requestData.map((item, id) => {
-              return (
-                <div
-                  key={id}
-                  className="flex justify-between items-center mt-2 py-3 px-4 bg-blue-50 rounded-xl"
-                >
-                  <div className="flex items-center">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="object-cover object-center rounded-full "
-                      style={{ height: "40px", width: "40px" }}
-                    />
-                    <h5 className="font-medium ml-5 ">{item.name}</h5>
-                  </div>
-                  <Button type="primary" className="" size="small">
-                    Accept
-                  </Button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </ModalWrapper>
-    </>
-  );
+					<form>
+						<Input
+							label="Title"
+							inputType="input"
+							type="text"
+							placeholder="Title of your project"
+							name="title"
+							value={editPostData.title}
+							state={editPostData}
+							setState={setEditPostData}
+							labelClass="mt-4"
+						/>
+						<Input
+							label="Description"
+							inputType="textarea"
+							placeholder="Description of your project"
+							name="description"
+							value={editPostData.description}
+							state={editPostData}
+							setState={setEditPostData}
+							labelClass="mt-4"
+							rows={3}
+						/>
+						<Input
+							label="Developers required"
+							inputType="input"
+							type="number"
+							placeholder="e.g. 2"
+							name="developers"
+							value={editPostData.developers}
+							state={editPostData}
+							setState={setEditPostData}
+							labelClass="mt-4"
+						/>
+						<Input
+							label="Designers required"
+							inputType="input"
+							type="number"
+							placeholder="e.g. 2"
+							name="designers"
+							value={editPostData.designers}
+							state={editPostData}
+							setState={setEditPostData}
+							labelClass="mt-4"
+						/>
+						<Button
+							type="primary"
+							size="full"
+							className="my-4"
+							onClick={onSubmitHandler}
+							isLoading={loadingUpdate}
+						>
+							Update post 🧾
+						</Button>
+					</form>
+				</div>
+			</ModalWrapper>
+		</>
+	);
 };
 
 export default ProfilePost;

@@ -18,18 +18,20 @@ import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
 
 const Landing = () => {
+	const [loading, setLoading] = useState(false);
+	const history = useHistory();
 	const [query, setQuery] = useState({
 		name: "",
 		email: "",
 		message: "",
 	});
-	const history = useHistory();
 	const routeChange = () => {
 		let path = `/signup`;
 		history.push(path);
 	};
 	const form = useRef();
 	const sendEmail = (e) => {
+		setLoading(true);
 		e.preventDefault();
 
 		emailjs
@@ -42,6 +44,7 @@ const Landing = () => {
 			.then(
 				(result) => {
 					setQuery({ name: "", email: "", message: "" });
+					setLoading(false);
 					toast.success(
 						"Thankyou for reaching us😊. Our team will get back to you soon!🤝",
 						{
@@ -285,7 +288,7 @@ const Landing = () => {
 									hasShadow
 									children="Submit"
 									className="mt-4"
-									isloading="true"
+									isLoading={loading}
 									onClick={sendEmail}
 								/>
 							</form>
