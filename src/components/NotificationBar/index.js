@@ -1,59 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import icon from "../../assets/NotificationIcons/icon.jpg";
 import Button from "../Button";
 import axios from "../../api/api";
 import { toast } from "react-toastify";
-const NotificationBar = ({
-	notifId,
-	userName,
-	userId,
-	reqType,
-	userImg,
-	postId,
-}) => {
+const NotificationBar = ({ reqType, senderUserId, postId, notifId }) => {
 	// eslint-disable-next-line no-unused-vars
 	const [post, setPost] = useState(null);
+	const [sender, setSender] = useState({});
+	const [loading, setLoading] = useState(false);
 
-	// const acceptCollabReq = () => {
+	useEffect(() => {
+		const getUser = async () => {
+			try {
+				// setLoading(true);
+				const res = await axios.get(`/api/user/${senderUserId}`, {
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+						"Access-Control-Allow-Origin": "*",
+						accessToken: localStorage.getItem("accessToken"),
+					},
+				});
+				setSender(res.data.data);
+				console.log(res);
+			} catch (err) {}
+		};
+		getUser();
+	}, []);
 
-	// }
-
-	// const viewGroup = () => {
-
-	// }
-
-	const followBack = async () => {
+	const handleAccept = async () => {
 		try {
-			const res = await axios.put(`/api/user/${userId}/follow`, {
-				userId: localStorage.getItem("userId"),
-			});
-
-			console.log("Res", res.data);
-			if (!res.status === 200) {
-				const error = new Error(res.error);
-				throw error;
-			}
-			toast.success(`${res.data.message}`, {
-				position: "top-center",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			setLoading(true);
+			const res = await axios.put(
+				`/api/user/${senderUserId}/acceptnotification`,
+				{
+					postId: postId,
+					currentUserId: localStorage.getItem("userId"),
+				}
+			);
+			console.log(res);
+			setLoading(false);
 		} catch (err) {
-			console.log(err.message);
-			toast.error(`${err.message}`, {
-				position: "top-center",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
-			// history.push("/login");
+			console.log(err);
 		}
 	};
 
@@ -85,14 +73,14 @@ const NotificationBar = ({
 		<div className="flex flex-col px-6 py-8 md:py-4 my-6 mx-auto items-center border-2 border-blue-100 rounded-3xl w-full md:flex-row max-w-5xl">
 			<img
 				className="w-16 h-16 object-cover object-center md:h-12 md:w-12 rounded-full"
-				src={userImg || icon}
-				alt={userName}
+				src={sender.profileimage || icon}
+				alt={sender.name}
 			/>
 			<h1 className="text-blue-600 font-bold text-base md:ml-6 md:mr-2">
-				{userName}
+				{sender.name}
 			</h1>
 
-			{reqType === "collabReq" ? (
+			{reqType === "collabreq" ? (
 				<>
 					<p className="text-gray-400 mb-5 md:mb-0">
 						sent you a collaboration request 🤝
@@ -103,34 +91,38 @@ const NotificationBar = ({
 							size="small"
 							type="secondary"
 							children="View Post"
-							onClick={viewPost}
+							// onClick={viewPost}
 						/>
-						<Button size="small" type="primary" children="Accept" />
+						<Button
+							size="small"
+							type="primary"
+							children="Accept"
+							onClick={handleAccept}
+							isLoading={loading}
+						/>
 					</div>
 				</>
-			) : reqType === "collabRes" ? (
+			) : reqType === "acceptreq" ? (
 				<>
 					<p className="text-gray-400 mb-5 md:mb-0">
 						accepted your collab request 🎉
 					</p>
-					<Button
-						className="md:ml-auto"
-						size="small"
-						type="success"
-						children="View Group"
-						// onClick={}
-					/>
-				</>
-			) : reqType === "startedFollowing" ? (
-				<>
-					<p className="text-gray-400 mb-5 md:mb-0">started following you 🔥</p>
-					<Button
-						className="md:ml-auto"
-						size="small"
-						type="primary"
-						children="Follow back"
-						onClick={followBack}
-					/>
+					<div className="flex justify-evenly w-full md:w-auto md:ml-auto">
+						<Button
+							className="md:mx-8 "
+							size="small"
+							type="secondary"
+							children="View Post"
+							// onClick={viewPost}
+						/>
+						<Button
+							className="md:ml-auto"
+							size="small"
+							type="success"
+							children="View Group"
+							// onClick={}
+						/>
+					</div>
 				</>
 			) : null}
 		</div>

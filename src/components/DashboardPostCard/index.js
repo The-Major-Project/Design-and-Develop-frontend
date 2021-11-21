@@ -39,6 +39,11 @@ const DashboardPostCard = ({
 				}
 			);
 			console.log(res);
+			const resNotify = await axios.put(`/api/user/${userId}/notification`, {
+				currentUserId: localStorage.getItem("userId"),
+				postId: id,
+			});
+			console.log(resNotify);
 			setLoading(false);
 			setBtnText("Collab req sent 🛩️");
 			setDisabled(true);
