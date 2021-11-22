@@ -116,7 +116,7 @@ const ProfileOverview = ({
 
 	return (
 		<>
-			<div className="lg:w-96 h-110 max-h-110 rounded-3xl lg:sticky lg:top-28  shadow-tabShadows sm:mx-auto sm:w-full">
+			<div className="lg:w-96 h-105 max-h-110 rounded-3xl lg:sticky lg:top-28  shadow-tabShadows sm:mx-auto sm:w-full">
 				<div className="w-full h-24 py-2 px-4 " style={mystyle}>
 					<div className="rounded-full h-20  w-20 mx-auto absolute inset-x-1/4 top-36 lg:top-12 lg:inset-x-1/4  p-1 bg-white shadow-tabShadow">
 						<img
@@ -145,23 +145,23 @@ const ProfileOverview = ({
 					</div>
 					<div className="mt-3">
 						<p
-							className="text-sm overflow-clip overflow-hidden text-justify  "
+							className="text-sm overflow-clip overflow-hidden text-justify h-28 "
 							style={{ "max-height": "100px" }}
 						>
 							{currentUser.description}
 						</p>
 						<ul className="list-none text-xs mt-4 font-semibold text-gray-500">
-							<li className="flex mt-4 items-center justify-center">
+							<li className="flex mt-4 items-center ">
 								<Mail width="22" />{" "}
-								<a className="ml-2" href={`mailto:${currentUser.email}`}>
+								<a className="ml-2 hover:text-blue-600" href={`mailto:${currentUser.email}`}>
 									{currentUser.email}
 								</a>
 							</li>
 							{currentUser.usertype === "developer" ? (
-								<li className="flex mt-4 items-cente justify-center">
+								<li className="flex mt-4 items-cente ">
 									<Github width="22" />{" "}
 									<a
-										className="ml-2"
+										className="ml-2 hover:text-blue-600"
 										href={`https://github.com/${currentUser.githubusername}`}
 										target="_blank"
 										rel="noreferrer"
@@ -170,10 +170,10 @@ const ProfileOverview = ({
 									</a>
 								</li>
 							) : currentUser.usertype === "designer" ? (
-								<li className="flex mt-4 items-center justify-center">
+								<li className="flex mt-4 items-center ">
 									<Dribbble width="22" />{" "}
 									<a
-										className="ml-2"
+										className="ml-2 hover:text-blue-600"
 										href={`https://dribbble.com/${currentUser.dribbbleusername}`}
 										target="_blank"
 										rel="noreferrer"
@@ -183,10 +183,10 @@ const ProfileOverview = ({
 								</li>
 							) : (
 								<>
-									<li className="flex mt-4 items-cente justify-center">
+									<li className="flex mt-4 items-center ">
 										<Github width="22" />{" "}
 										<a
-											className="ml-2"
+											className="ml-2 hover:text-blue-600"
 											href={`https://github.com/${currentUser.githubusername}`}
 											target="_blank"
 											rel="noreferrer"
@@ -194,10 +194,10 @@ const ProfileOverview = ({
 											{currentUser.githubusername}
 										</a>
 									</li>
-									<li className="flex mt-4 items-center justify-center">
+									<li className="flex mt-4 items-center ">
 										<Dribbble width="22" />{" "}
 										<a
-											className="ml-2"
+											className="ml-2 hover:text-blue-600"
 											href={`https://dribbble.com/${currentUser.dribbbleusername}`}
 											target="_blank"
 											rel="noreferrer"
@@ -209,10 +209,10 @@ const ProfileOverview = ({
 							)}
 
 							{currentUser.profileurl != null || "" || undefined ? (
-								<li className="flex mt-4 items-center justify-center">
+								<li className="flex mt-4 items-center ">
 									<Link width="22" />{" "}
 									<a
-										className="ml-2"
+										className="ml-2 hover:text-blue-600"
 										href={`http://${currentUser.profileurl}`}
 										target="_blank"
 										rel="noreferrer"

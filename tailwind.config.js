@@ -13,6 +13,7 @@ module.exports = {
 				85: "23rem",
 				68: "16.5rem",
 				100: "30rem",
+				105: "33rem",
 				110: "35rem",
 			},
 			backgroundColor: {
