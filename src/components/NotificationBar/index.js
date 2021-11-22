@@ -3,6 +3,7 @@ import Button from "../Button";
 import ModalWrapper from "../ModalWrapper";
 import axios from "../../api/api";
 import { ReactComponent as Avatar } from "../../assets/DashboardIcons/gitprofile.svg";
+import { Link } from "react-router-dom";
 
 const NotificationBar = ({
 	reqType,
@@ -104,7 +105,7 @@ const NotificationBar = ({
 				alt={sender.name}
 			/>
 			<h1 className="text-blue-600 font-bold text-base md:ml-6 md:mr-2">
-				{sender.name}
+				<Link to={`/profile/user/${sender._id}`}>{sender.name}</Link>
 			</h1>
 
 			{reqType === "collabreq" ? (
