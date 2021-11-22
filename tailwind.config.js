@@ -15,6 +15,7 @@ module.exports = {
 				100: "30rem",
 				105: "33rem",
 				110: "35rem",
+				120: "50rem",
 			},
 			backgroundColor: {
 				modalBG: "rgba(0, 0, 0, 0.4)",
