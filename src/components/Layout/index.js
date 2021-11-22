@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import Ham from "../../assets/Ham.svg";
 import { motion } from "framer-motion";
+// eslint-disable-next-line no-unused-vars
 import Search from "../Search";
 import { stateContext } from "../../context/DNDContext";
 
@@ -28,11 +29,11 @@ const Layout = ({ sider, main }) => {
 
 				<div className="w-full flex flex-col min-h-screen">
 					<header className="z-30 flex w-full justify-evenly items-center bg-white px-6 py-3 sticky top-0 lg:z-20">
-						<h1 className="hidden md:block text-2xl font-semibold text-gray-800">
+						<h1 className="text-2xl font-semibold text-gray-800">
 							Welcome Back,{" "}
 							<span className="text-blue-600">{currentUser.name}</span>
 						</h1>
-						<Search />
+						{/* <Search /> */}
 						<div
 							className="border-blue-500 px-2 py-1 flex flex-col justify-evenly h-8  rounded-md lg:hidden"
 							onClick={() => setIsSidebarOpen(!isSidebarOpen)}

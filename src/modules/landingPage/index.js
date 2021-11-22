@@ -18,33 +18,61 @@ import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
 
 const Landing = () => {
+	const [loading, setLoading] = useState(false);
+	const history = useHistory();
 	const [query, setQuery] = useState({
 		name: "",
 		email: "",
 		message: "",
 	});
-	const history = useHistory();
 	const routeChange = () => {
 		let path = `/signup`;
 		history.push(path);
 	};
 	const form = useRef();
 	const sendEmail = (e) => {
-		e.preventDefault();
+		if (!query.name || !query.email || !query.message) {
+			e.preventDefault();
+			toast.error("Please fill the data properly 😟", {
+				position: "top-center",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+		} else {
+			setLoading(true);
+			e.preventDefault();
 
-		emailjs
-			.sendForm(
-				"service_2gvm163",
-				"template_fqdzahp",
-				form.current,
-				"user_ATUT81Ji9zh87IWKoU2rE"
-			)
-			.then(
-				(result) => {
-					setQuery({ name: "", email: "", message: "" });
-					toast.success(
-						"Thankyou for reaching us😊. Our team will get back to you soon!🤝",
-						{
+			emailjs
+				.sendForm(
+					"service_2gvm163",
+					"template_fqdzahp",
+					form.current,
+					"user_ATUT81Ji9zh87IWKoU2rE"
+				)
+				.then(
+					(result) => {
+						setQuery({ name: "", email: "", message: "" });
+						setLoading(false);
+						toast.success(
+							"Thankyou for reaching us😊. Our team will get back to you soon!🤝",
+							{
+								position: "top-center",
+								autoClose: 5000,
+								hideProgressBar: false,
+								closeOnClick: true,
+								pauseOnHover: true,
+								draggable: true,
+								progress: undefined,
+							}
+						);
+					},
+					(error) => {
+						setQuery({ name: "", email: "", message: "" });
+						toast.error("Oops😅! Error has occured. Please try again later", {
 							position: "top-center",
 							autoClose: 5000,
 							hideProgressBar: false,
@@ -52,22 +80,10 @@ const Landing = () => {
 							pauseOnHover: true,
 							draggable: true,
 							progress: undefined,
-						}
-					);
-				},
-				(error) => {
-					setQuery({ name: "", email: "", message: "" });
-					toast.error("Oops😅! Error has occured. Please try again later", {
-						position: "top-center",
-						autoClose: 5000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-					});
-				}
-			);
+						});
+					}
+				);
+		}
 	};
 	return (
 		<>
@@ -285,7 +301,7 @@ const Landing = () => {
 									hasShadow
 									children="Submit"
 									className="mt-4"
-									isloading="true"
+									isLoading={loading}
 									onClick={sendEmail}
 								/>
 							</form>

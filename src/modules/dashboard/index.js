@@ -76,8 +76,13 @@ const DashBoard = () => {
 				<div>
 					<DashboardBanner />
 					<div className="flex flex-wrap gap-10 mt-10">
-						{PostCardData &&
-							PostCardData.map((card, index) => (
+						{/*eslint-disable-next-line eqeqeq*/}
+						{PostCardData == 0 ? (
+							<h1 className="text-2xl mx-auto">
+								<span className="font-semibold">Sorry! No Posts to show</span>😢
+							</h1>
+						) : (
+							PostCardData?.map((card, index) => (
 								<DashboardPostCard
 									key={index}
 									user={card.userName}
@@ -87,8 +92,13 @@ const DashBoard = () => {
 									date={card.createdAt.substring(0, 10)}
 									heading={card.title}
 									id={card._id}
+									userId={card.userId}
+									avatar={card.img}
+									requestors={card.requestors}
+									acceptors={card.acceptors}
 								/>
-							))}
+							))
+						)}
 					</div>
 				</div>
 			}
