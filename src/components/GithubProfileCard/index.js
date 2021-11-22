@@ -24,7 +24,7 @@ const GithubProfileCard = ({
   return (
     <>
       <motion.div
-        className="w-68 rounded-2xl px-4 py-5 border-2 cursor-pointer flex flex-col justify-between"
+        className="w-68 rounded-2xl h-60 px-4 py-5 border-2 cursor-pointer flex flex-col justify-between"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -42,7 +42,7 @@ const GithubProfileCard = ({
             className=" text-sm overflow-clip overflow-hidden "
             style={{ "max-width": "50ch", "max-height": "100px" }}
           >
-            {description}
+            {!description? "Description not added":description}
           </p>
         </div>
 
