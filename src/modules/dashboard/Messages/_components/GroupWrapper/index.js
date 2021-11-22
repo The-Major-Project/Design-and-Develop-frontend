@@ -1,7 +1,7 @@
 import React from "react";
 import GroupCard from "../GroupCard";
 
-const GroupWrapper = () => {
+const GroupWrapper = ({ groupList, loading, getMsgs }) => {
 	return (
 		<div className="bg-blue-50 w-72 rounded-2xl mr-6">
 			<h1
@@ -11,9 +11,17 @@ const GroupWrapper = () => {
 				<span className="font-semibold">My Groups</span> 🤝
 			</h1>
 			<div className="p-4">
-				<GroupCard groupName="React Boilerplate" />
-				<GroupCard groupName="Python" />
-				<GroupCard groupName="React Major" />
+				{groupList.length === 0 ? (
+					<h1 className="text-lg text-center">No Groups to show 😢</h1>
+				) : (
+					groupList.map((group) => (
+						<GroupCard
+							key={group.groupId}
+							groupName={group.groupName}
+							groupId={group.groupId}
+						/>
+					))
+				)}
 			</div>
 		</div>
 	);

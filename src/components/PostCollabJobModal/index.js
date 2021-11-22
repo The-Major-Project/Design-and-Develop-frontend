@@ -33,6 +33,25 @@ const PostCollabJobModal = ({ visible, setVisible }) => {
 			});
 			console.log(res);
 			console.log(currentUser.name, currentUser._id, currentUser.profileimage);
+
+			// CREATE GROUP
+			const resGroup = await axios.post("/api/chat/group", {
+				groupId: res.data._id,
+				groupName: res.data.title,
+				members: localStorage.getItem("userId"),
+			});
+			console.log(resGroup);
+
+			// Send 1ST Message
+			const resMsg = await axios.post("/api/chat/message", {
+				message: "Welcome to your new chat group! Let's Make It Happen🎉",
+				senderName: "D&D Team",
+				senderPhoto:
+					"https://res.cloudinary.com/dws5zrl1l/image/upload/v1637613024/profile-images/godpz2qsluzsylnddmbp.png",
+				groupId: res.data._id,
+			});
+			console.log(resMsg);
+
 			toast.success("Your collab job is successfully posted 💯", {
 				position: "top-center",
 				autoClose: 5000,

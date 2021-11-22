@@ -26,6 +26,7 @@ const Router = () => {
 					<Route exact path="/notifications" component={Notifications} />
 					<Route exact path="/happners" component={Happners} />
 					<Route exact path="/messages" component={Messages} />
+					<Route exact path="/messages/group/:id" component={Messages} />
 					<Route exact path="/login">
 						<Redirect to="/dashboard" />
 					</Route>

@@ -13,7 +13,7 @@ const MessageBox = ({ photoUrl, name, time, date, body }) => {
 				className="pl-4 pr-5 py-3 bg-white"
 			>
 				<h1 className="font-semibold text-sm text-blue-500">
-					{name} | {time} {date}
+					{name} | {date} {time}
 				</h1>
 				<div className=" text-sm">{body}</div>
 			</div>

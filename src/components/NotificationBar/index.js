@@ -3,7 +3,7 @@ import Button from "../Button";
 import ModalWrapper from "../ModalWrapper";
 import axios from "../../api/api";
 import { ReactComponent as Avatar } from "../../assets/DashboardIcons/gitprofile.svg";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const NotificationBar = ({
 	reqType,
@@ -12,6 +12,7 @@ const NotificationBar = ({
 	notifId,
 	setCurrentUser,
 }) => {
+	const history = useHistory();
 	// eslint-disable-next-line no-unused-vars
 	const [post, setPost] = useState({});
 	const [sender, setSender] = useState({});
@@ -53,6 +54,14 @@ const NotificationBar = ({
 				}
 			);
 			console.log(res);
+
+			// Add to grp
+			const addToGrp = await axios.put(`/api/chat/addtogroup/${postId}`, {
+				id: senderUserId,
+				// groupId: postId,
+			});
+
+			console.log(addToGrp);
 			const deleteres = await axios.put(
 				`/api/user/${notifId}/deleteNotification`,
 				{ acceptorUserId: localStorage.getItem("userId") }
@@ -70,11 +79,16 @@ const NotificationBar = ({
 					},
 				}
 			);
+			console.log(result);
 			setCurrentUser(result.data.data);
 			setLoading(false);
 		} catch (err) {
 			console.log(err);
 		}
+	};
+
+	const viewMessages = () => {
+		history.push(`/messages/group/${postId}`);
 	};
 
 	const viewPost = async () => {
@@ -148,7 +162,7 @@ const NotificationBar = ({
 							size="small"
 							type="success"
 							children="View Group"
-							// onClick={}
+							onClick={viewMessages}
 						/>
 					</div>
 				</>
